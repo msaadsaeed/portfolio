@@ -1,0 +1,206 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'SF TransRobotics';
+  src: url('./fonts/sf-transrobotics.regular.ttf') format('truetype');
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-image: url('assets/mian_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Adjust alpha value for transparency */
+  z-index: -1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding-left: 100px;
+}
+
+.about {
+  background-color: rgba(75, 75, 125, 0.4);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 100%;
+  color: #fff;
+  text-align: center;
+}
+
+.about-me {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 100px;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: 20px auto;
+  background-image: url('assets/pic.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+.name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.title {
+  font-family: 'SF TransRobotics', sans-serif;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
+.card-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card__container {
+  width: 80%;
+}
+
+.card__content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card__article {
+  width: 300px;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card__image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.card__data {
+  padding: 20px;
+  text-align: center;
+}
+
+.card__name {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.card__description {
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.card__button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.card__button:hover {
+  background-color: #555;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #333;
+  font-size: 24px;
+}
+
+.swiper-pagination-bullet {
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .about {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .about-me {
+    top: 10px;
+    right: 10px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .card__container {
+    width: 100%;
+  }
+
+  .card__article {
+    width: calc(100% - 40px);
+  }
+}

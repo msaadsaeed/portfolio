@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #eee;
+  color: #111;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  --footer-width: 80vw;
+  --footer-height: 25px;
+  --footer-elements-displayed: 5;
+  --footer-element-width: calc(var(--footer-width) / var(--footer-elements-displayed));
+  --footer-animation-duration: calc(var(--footer-elements) * 1.5s);
+  --icon-size: 25px;
+}
+
+.footer {
+  width: 100%;
+  height: var(--footer-height);
+  background-color: #111;
+  color: #eee;
+  overflow: hidden;
+  position: fixed; /* Change position to fixed */
+  bottom: 10px; /* Position at the bottom of the viewport */
+  left: 50%; /* Move to the horizontal center */
+  transform: translateX(-50%); /* Adjust for center alignment */
+  z-index: 2; /* Ensure it's above other content */
+}
+
+.footer:before,
+.footer:after {
+  position: absolute;
+  top: 0;
+  width: 10rem;
+  height: 100%;
+  content: "";
+  z-index: 1;
+}
+
+.footer:before {
+  left: 0;
+  background: linear-gradient(to right, #111 0%, transparent 100%);
+}
+
+.footer:after {
+  right: 0;
+  background: linear-gradient(to left, #111 0%, transparent 100%);
+}
+
+.footer-content {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  animation: scrolling var(--footer-animation-duration) linear infinite;
+}
+
+@keyframes scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--footer-element-width) * var(--footer-elements-displayed))); }
+}
+
+.footer-content li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--footer-element-width);
+  max-height: 100%;
+  font-size: calc(var(--footer-height) * 3/4);
+  white-space: nowrap;
+}
+
+.footer-content li img {
+  width: var(--icon-size); /* Set the width of all icons */
+  height: var(--icon-size); /* Set the height of all icons */
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    height: 12vh; /* Adjust height for smaller screens */
+  }
+  .footer-content li img {
+    max-width: 50%; /* Adjust the maximum width for smaller screens */
+  }
+}
+
+
