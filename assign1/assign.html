@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 1</title>
+   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <style>
+          body {
+      font-family: Arial, sans-serif;
+      background-image: url('../assets/mian_bg.jpg');
+      background-size: cover;
+      background-attachment: fixed; 
+      background-repeat: no-repeat;
+      background-position: center center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .about-title {
+      margin-bottom: 10px;
+      padding: 10px; 
+      padding-bottom: 20px;
+    }
+    
+    .content {
+      word-wrap: break-word;
+      background-color: rgba(75, 75, 125, 0.9);
+      padding: 20px;
+      width: 1200px;
+    }
+    
+    .plot-container {
+      margin-bottom: 50px;
+      color: white; 
+      background-color: transparent; 
+      border-radius: 10px; 
+      overflow: hidden; 
+    }
+    
+      .plot-title { 
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background-color:#1b1b2b; 
+      padding: 15px; 
+      margin-top: 20px;
+      margin-bottom: -10px;
+      text-align: center;
+      color: white;
+      border-radius: 10px;
+    }
+    .plot-description {
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 10px; 
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      color: black;
+    }
+    
+.plot-div {
+      width: 1200px;
+      height: 800px;
+      margin: 0 auto;
+      background-color: transparent; 
+}
+
+        .home-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+  </style>
+  <script>
+
+        function drawStackedBarChart() {
+  fetch('mountains_data.csv')
+    .then(response => response.text())
+    .then(csvText => {
+      Papa.parse(csvText, {
+        header: true,
+        complete: function(results) {
+          var mountains = [...new Set(results.data.map(item => item.Mountain).filter(item => item))].sort();
+          var causesOfDeath = [...new Set(results.data.map(item => item['Cause of death']).filter(item => item))].sort((a, b) => {
+            var countA = results.data.filter(item => item['Cause of death'] === a).length;
+            var countB = results.data.filter(item => item['Cause of death'] === b).length;
+            return countB - countA; // Sort in descending order by death count
+          });
+
+          // Create an array to store data rows
+          var dataRows = [];
+
+          causesOfDeath.forEach(cause => {
+            var row = [cause];
+            mountains.forEach(mountain => {
+              var count = results.data.filter(item => item.Mountain === mountain && item['Cause of death'] === cause).length;
+              row.push(count);
+            });
+            if (row.slice(1).some(count => count !== 0)) { // Check if any count is not zero
+              dataRows.push(row);
+            }
+          });
+
+          // Create the DataTable
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Cause of Death');
+          mountains.forEach(mountain => {
+            data.addColumn('number', mountain);
+          });
+          data.addRows(dataRows);
+
+          // Calculate average death count per mountain
+          var avgDeathCounts = mountains.map(mountain => {
+            var countSum = dataRows.reduce((sum, row) => sum + row[mountains.indexOf(mountain) + 1], 0);
+            return countSum / dataRows.length; // Average count
+          });
+
+          // Create a trend line data array
+          var trendLineData = [['Mountain', 'Average Death Count']];
+          mountains.forEach((mountain, index) => {
+            trendLineData.push([mountain, avgDeathCounts[index]]);
+          });
+
+          var options = {
+            width: 1200,
+            height: 800,
+            legend: { position: 'right', maxLines: 1 },
+            isStacked: true, // Set to true for stacked graph
+            hAxis: {
+              title: 'Death Count'
+            },
+            vAxis: {
+              title: 'Cause of Death'
+            }
+          };
+
+          var chart = new google.visualization.BarChart(document.getElementById('stacked_bar_chart_div'));
+          chart.draw(data, options);
+
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching the CSV file:', error));
+}
+
+function drawGroupedBarChart() {
+      fetch('mountains_data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          Papa.parse(csvText, {
+            header: true,
+            complete: function(results) {
+              var mountains = [...new Set(results.data.map(item => item.Mountain).filter(item => item))];
+              var causesOfDeath = [...new Set(results.data.map(item => item['Cause of death']).filter(item => item))];
+
+              var mountainDeathCount = {};
+              mountains.forEach(mountain => {
+                mountainDeathCount[mountain] = results.data.filter(item => item.Mountain === mountain).length;
+              });
+              mountains.sort((a, b) => mountainDeathCount[b] - mountainDeathCount[a]);
+              var dataRows = [];
+
+              mountains.forEach(mountain => {
+                var row = [mountain];
+                causesOfDeath.forEach(cause => {
+                  var count = results.data.filter(item => item.Mountain === mountain && item['Cause of death'] === cause).length;
+                  row.push(count);
+                });
+                if (row.slice(1).some(count => count !== 0)) { // Check if any count is not zero
+                  dataRows.push(row);
+                }
+              });
+
+              // Filter out causes of death with all zero counts
+              var nonZeroCauses = [];
+              for (let i = 1; i < dataRows[0].length; i++) {
+                if (dataRows.some(row => row[i] !== 0)) {
+                  nonZeroCauses.push(causesOfDeath[i - 1]);
+                }
+              }
+
+              // Create the DataTable
+              var data = new google.visualization.DataTable();
+              data.addColumn('string', 'Mountain');
+              nonZeroCauses.forEach(cause => {
+                data.addColumn('number', cause);
+              });
+              data.addRows(dataRows.map(row => [row[0], ...row.slice(1).filter((count, index) => nonZeroCauses.includes(causesOfDeath[index]))]));
+
+              var options = {
+                width: 1200,
+                height: 800,
+                legend: { position: 'right', maxLines: 2, textStyle: { color: 'black', fontSize: 12 } },
+                isStacked: false,
+                hAxis: {
+                  title: 'Mountain'
+                },
+                vAxis: {
+                  title: 'Death Count'
+                }
+              };
+
+              var chart = new google.visualization.ColumnChart(document.getElementById('grouped_bar_chart_div'));
+              chart.draw(data, options);
+            }
+          });
+        })
+        .catch(error => console.error('Error fetching the CSV file:', error));
+    }
+
+
+
+    function drawHeatmap() {
+      fetch('mountains_data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          Papa.parse(csvText, {
+            header: true,
+            complete: function(results) {
+              var mountains = [...new Set(results.data.map(item => item.Mountain).filter(item => item))].sort();
+              var causesOfDeath = [...new Set(results.data.map(item => item['Cause of death']).filter(item => item))].sort();
+
+              // Create an empty matrix for heatmap data
+              var heatmapData = [];
+
+              // Fill the matrix with counts based on mountains and causes of death
+              causesOfDeath.forEach(cause => {
+                var rowData = [];
+                mountains.forEach(mountain => {
+                  var count = results.data.filter(item => item.Mountain === mountain && item['Cause of death'] === cause).length;
+                  rowData.push(count);
+                });
+                heatmapData.push(rowData);
+              });
+
+              // Create the heatmap trace
+              var trace = {
+                x: mountains,
+                y: causesOfDeath,
+                z: heatmapData,
+                type: 'heatmap',
+                colorscale: 'Portland' // You can change the colorscale if needed
+              };
+
+              var layout = {
+                xaxis: { title: 'Mountain' },
+                yaxis: { title: 'Cause of Death' },
+                margin: {
+                  l: 350, // Left margin
+                  r: 350, // Right margin
+                  b: 100, // Bottom margin
+                  t: 100, // Top margin
+                  pad: 0 // Padding between plot and container
+                }
+              };
+
+              Plotly.newPlot('heatmap_div', [trace], layout);
+            }
+          });
+        })
+        .catch(error => console.error('Error fetching the CSV file:', error));
+    }
+  
+    function drawLogScaledHeatmap() {
+  fetch('mountains_data.csv')
+    .then(response => response.text())
+    .then(csvText => {
+      Papa.parse(csvText, {
+        header: true,
+        complete: function(results) {
+          var mountains = [...new Set(results.data.map(item => item.Mountain).filter(item => item))].sort();
+          var causesOfDeath = [...new Set(results.data.map(item => item['Cause of death']).filter(item => item))].sort();
+
+          // Create an empty matrix for heatmap data
+          var heatmapData = [];
+
+          // Fill the matrix with counts based on mountains and causes of death
+          causesOfDeath.forEach(cause => {
+            var rowData = [];
+            mountains.forEach(mountain => {
+              var count = results.data.filter(item => item.Mountain === mountain && item['Cause of death'] === cause).length;
+              rowData.push(count > 0 ? Math.log10(count) : 0); // Apply logarithmic scaling
+            });
+            heatmapData.push(rowData);
+          });
+
+          // Create the heatmap trace
+          var trace = {
+            x: mountains,
+            y: causesOfDeath,
+            z: heatmapData,
+            type: 'heatmap',
+            colorscale: 'Portland', // You can change the colorscale if needed
+            zmin: 0, // Minimum value for color scale
+            zmax: Math.ceil(Math.log10(results.data.length)), // Maximum value for color scale
+            zsmooth: 'best' // Smoothing option for heatmap
+          };
+
+          var layout = {
+            xaxis: { title: 'Mountain' },
+            yaxis: { title: 'Cause of Death' },
+            margin: {
+              l: 350, // Left margin
+              r: 350, // Right margin
+              b: 100, // Bottom margin
+              t: 100, // Top margin
+              pad: 0 // Padding between plot and container
+            }
+          };
+
+          Plotly.newPlot('log_scaled_heatmap_div', [trace], layout);
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching the CSV file:', error));
+}
+
+function drawBubbleChart() {
+  fetch('mountains_data.csv')
+    .then(response => response.text())
+    .then(csvText => {
+      Papa.parse(csvText, {
+        header: true,
+        complete: function(results) {
+          var mountains = [...new Set(results.data.map(item => item.Mountain).filter(item => item))].sort();
+          var causesOfDeath = [...new Set(results.data.map(item => item['Cause of death']).filter(item => item))].sort((a, b) => {
+            var countA = results.data.filter(item => item['Cause of death'] === a).length;
+            var countB = results.data.filter(item => item['Cause of death'] === b).length;
+            return countB - countA; // Sort in descending order by death count
+          });
+
+          // Create an array to store data rows
+          var dataRows = [];
+
+          causesOfDeath.forEach(cause => {
+            var row = { cause: cause };
+            mountains.forEach(mountain => {
+              var count = results.data.filter(item => item.Mountain === mountain && item['Cause of death'] === cause).length;
+              row[mountain] = count;
+            });
+            dataRows.push(row);
+          });
+
+          // Create trace data for bubble chart with sorted mountains
+          var traceData = mountains.map((mountain, index) => ({
+            x: causesOfDeath.map((_, i) => i + (Math.random() - 0.4) * 0.2), // Adjust jitter range here
+            y: dataRows.map(row => row[mountain]),
+            text: dataRows.map(row => `${mountain}: ${row[mountain]} deaths`),
+            mode: 'markers',
+            marker: {
+              size: dataRows.map(row => row[mountain] * 2), // Adjust bubble size based on count
+              sizemode: 'area',
+              sizeref: 0.2,
+              sizemin: 5,
+              color: `hsl(${index * (360 / mountains.length)}, 100%, 50%)`, // Choose very different colors using HSL
+              opacity: 0.8
+            },
+            name: mountain
+          }));
+
+          var layout = {
+            xaxis: { title: 'Cause of Death', tickvals: causesOfDeath.map((_, i) => i), ticktext: causesOfDeath }, // Add x-axis labels
+            yaxis: { title: 'Death Count' },
+            hovermode: 'closest',
+            legend: { traceorder: 'normal' } // Arrange legend based on size
+          };
+
+          Plotly.newPlot('bubble_chart_div', traceData, layout);
+        }
+      });
+    })
+    .catch(error => console.error('Error fetching the CSV file:', error));
+}
+
+
+
+    
+    google.charts.load('current', { packages: ['corechart', 'treemap'] });
+    google.charts.setOnLoadCallback(drawGroupedBarChart);
+    google.charts.setOnLoadCallback(drawStackedBarChart);
+    window.addEventListener('load', drawHeatmap);
+    window.addEventListener('load', drawLogScaledHeatmap);
+    window.addEventListener('load', drawBubbleChart);
+  </script>
+</head>
+<body>
+  <a href="index.html" class="home-button">To Home</a>
+  
+  <div class="content">
+    <div style="background-color: #f0f0f0; border-radius: 10px; padding: 20px;">
+      <h1 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px;">Dataset: Mountain Climbing Incidents</h1>
+      <p>This <a href="https://www.kaggle.com/datasets/rprkh15/mountaineering-deaths-14-tallest-mountains">dataset</a> contains information about various incidents related to mountain climbing, 
+        including date of incident, name of mountaineer, nationality of mountaineer, cause of death. The dataset is available as 14 separate .csv 
+        files for the top 14 highest peaks in the world. Before plotting, I have performed these preprocessing steps on the dataset:</p>
+      <ul>
+        <li>Selected the CSV files for the top 5 highest peaks: Mount Everest, K2, Kangchenjunga, Lhotse, and Makalu.</li>
+        <li>The dataset contains lengthy descriptions of the cause of death in some cases. Therefore, I applied preprocessing to condense these descriptions into specific categories. 
+          Ultimately, we classified the causes of death into 11 generic categories.</li>
+      </ul>
+      <p>For plotting I have chosen the <b>Cause of death</b> and <b>Mountains.</b> In some plots the <b>Death Count</b> is based on <b>Cause of death</b> stratified by Mountain. 
+        Whereas in others the death count is based on mountians stratified by cause of death. Therefore, the plotting gives various insights into the dataset under study.</p>
+    </div>
+    
+    <div class="plot-container">
+      <div class="plot-title">Basic Plot: Grouped Bar Chart</div>
+      <div class="plot-description">
+        A grouped bar chart is a type of bar chart that displays data in the form of rectangular bars with the bards grouped by categories.
+        In this graph, the data has been stratified based on <b>Mountain</b> (x-axis) and <b>Death Count</b> (y-axis) is based on <b>Cause of death</b>. This graphs
+        gives clear insights for comparison across <b>Mountain</b> categorires. For example, we can see that Mount Everest has the most deaths due to <b>Avalanche</b> and <b>Fall</b>
+        in comparison to other <b>Mountains</b>. Moreover, it is also evident that <b>Fall</b> is prominent <b>Cause of death</b> across all categories. We can also see the individual 
+        <b>Death Count</b> due to specific cause across all <b>Mountains.</b>
+      </div>
+      <div id="grouped_bar_chart_div" class="plot-div"></div>
+    </div>
+
+    <div class="plot-container">
+      <div class="plot-title">Variation 1: Stacked Bar Chart</div>
+      <div class="plot-description">
+        This chart displays the <b>Death Count</b> (x-axis)s stratified by <b>Cause of death</b> (y-axis) across various mountains stacked together for comparison.
+        The most prominent features of this map is that we can see that across <b>Cause of death</b>, <b>Mount Everest</b> has the highest 
+        <b>Death Count</b>. Morever, in this map is we clearly see <b>Death Counts</b> due to specific cause across all mountains. For example, due to fall
+        the total <b>Death Count</b> across all <b>Mountains</b> is approximately <b>160</b>. <b>Heart attack</b> has the least amount of <b>Death count</b>
+        across all <b>Mountains.</b> In this plot, we cannot estimate the exact <b>Death Count</b> on specific <b>Mountain</b>.
+      </div>
+      <div id="stacked_bar_chart_div" class="plot-div"></div>
+    </div>
+
+    <div class="plot-container">
+      <div class="plot-title">Variation 2: Bubble Chart</div>
+      <div class="plot-description">
+        Plotting a bubble plot with jitter where the <b>Cause of death</b> (x-axis), <b>Death Count</b> (y-axis), 
+       <b>Bubble color</b> (Mountain) and <b>Bubble size</b> (Death Count) has several benefits. For example we can see the an see the 
+       relationship between <b>Cause of death</b>, <b>Death Count</b>, and the <b>Mountain</b> type in one plot, providing a comprehensive view 
+       of the data. The size of bubbles in the plot represent the <b>Death Count</b>, providing a visual cue about the 
+       magnitude of each data point. Larger bubbles indicate higher counts, while smaller bubbles indicate lower counts. Addition of jittered x-axis 
+       values enhances the visual appeal of the plot while maintaining clarity.
+      </div>
+      <div id="bubble_chart_div" class="plot-div"></div>
+    </div>
+
+    <div class="plot-container">
+      <div class="plot-title">Variation 3: Heatmap</div>
+      <div class="plot-description">
+        The heatmap effectively represents data density by using color gradients to show the distribution.
+        The heatmap shows the <b>Death Count</b> by <b>Cause of death</b> and <b>Mountain</b>, with color intensity representing the count. 
+        The major aspect that is hard to determine in other types of plots, heatmaps can provide insights into potential correlations. 
+        For instance, if certain <b>Cause of death</b> often occur together on the same <b>Mountain</b> but not on others, 
+        it may indicate a correlation between those causes specific to that <b>Mountain</b>. For instance, <b>Mount Everest</b> has the most
+        <b>Death Counts</b> due to <b>Avalanches</b> followed by <b>Fall</b> and <b>Exposure</b>. Similarly, <b>K2</b> has most deaths due to <b>Fall.</b>
+        Such correlation is most easy to most obvious in these kind of plots.
+      </div>
+      <div id="heatmap_div" class="plot-div"></div>
+    </div>
+
+    <div class="plot-container">
+      <div class="plot-title">Variation 4: Log Scaled Heatmap</div>
+      <div class="plot-description">
+        This heatmap applies <b>Logarithmic Scaling (base 10)</b> to the <b>Death Count</b>, providing a different perspective on the data. 
+        Log scaled plots offer several benefits, especially when dealing with data that spans dealing that wide range of values.
+        As it is clear from this plot that logarithmic scaling makes <b>small changes</b> in data more obvious, especially in the lower range of values.
+        Log scaling is useful where most values are concentrated in a narrow range, but there are a few extreme values. In comparison to simple heat map plot,
+        the log scaling has given highlighted patterns and trends that were not apparent in previous scale. For example, the previous analysis of
+        <b>Mount Everest</b> has become more obvious. Also, we only saw the most common <b>Cause of death</b> for <b>K2</b> is <b>Fall</b>. Here it has become
+        clear the second <b>Cause of death</b> are <b>Storm</b> and <b>Avalanches.</b>. This was not obvious in linear heatmap plot. Some enhanced features for 
+        other <b>Mountains</b> and <b>Cause of death</b> have become more obvious now.
+        
+      </div>
+      <div id="log_scaled_heatmap_div" class="plot-div"></div>
+    </div>
+    
+        <div class="plot-container">
+      <div class="plot-title">Conclusion</div>
+      <div class="plot-description">
+        In conclusion we have seen how different types of plots, such as <b>grouped bar charts</b>, <b>stacked bar charts</b>, <b>bubble charts</b>, 
+        <b>heatmaps</b>, and <b>log scaled plots</b>, allow for the identification of various patterns and trends in the data. Each plot has its own strength for 
+        different type of message. Some charts provide an insight into relationship between <b>Death Counts</b> while others provide a correlation between
+        the features under study. For instance, log scaled plots, can highlight the distribution of death counts across different 
+        <b>Causes of death</b> and <b>Mountains</b>, indicating where the data is concentrated. 
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>
+

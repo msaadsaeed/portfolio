@@ -1,5 +1,5 @@
 /*=============== GOOGLE FONTS ===============*/
-@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;300;300&display=swap");
 @font-face {
   font-family: 'SF TransRobotics';
   src: url('./fonts/sf-transrobotics.regular.ttf') format('truetype');
@@ -18,7 +18,7 @@
   --body-color: hsl(212, 42%, 15%);
   --container-color: hsl(212, 42%, 20%);
 
-  --body-font: "Loto", sans-serif;
+  --body-font: "Lato", sans-serif;
   --h2-font-size: 1.25rem;
   --normal-font-size: 1rem;
 }
