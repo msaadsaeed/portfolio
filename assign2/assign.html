@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 2</title>
+   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <style>
+          body {
+      font-family: Arial, sans-serif;
+      background-image: url('../assets/mian_bg.jpg');
+      background-size: cover;
+      background-attachment: fixed; 
+      background-repeat: no-repeat;
+      background-position: center center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .about-title {
+      margin-bottom: 10px;
+      padding: 10px; 
+      padding-bottom: 20px;
+    }
+    
+    .content {
+      word-wrap: break-word;
+      background-color: rgba(75, 75, 125, 0.9);
+      padding: 20px;
+      width: 1200px;
+    }
+    
+    .plot-container {
+      margin-bottom: 50px;
+      color: white; 
+      background-color: transparent; 
+      border-radius: 10px; 
+      overflow: hidden; 
+    }
+    
+      .plot-title { 
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background-color:#1b1b2b; 
+      padding: 15px; 
+      margin-top: 20px;
+      margin-bottom: -10px;
+      text-align: center;
+      color: white;
+      border-radius: 10px;
+    }
+    .plot-description {
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 10px; 
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      color: black;
+    }
+    
+    .bad_vis_image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;}
+    
+.plot-div {
+      width: 1200px;
+      height: 800px;
+      margin: 0 auto;
+      background-color: transparent; 
+}
+
+        .home-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+  </style>
+  <script>
+  </script>
+</head>
+<body>
+  <a href="../index.html" class="home-button">To Home</a>
+  
+  <div class="content">
+    <div style="background-color: #f0f0f0; border-radius: 10px; padding: 20px;">
+      <h1 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px;">Bad Visualization: Mountain Climbing Incidents</h1>
+      <p>This <a href="https://www.kaggle.com/datasets/rprkh15/mountaineering-deaths-14-tallest-mountains">dataset</a> contains information about various incidents related to mountain climbing, 
+        including date of incident, name of mountaineer, nationality of mountaineer, cause of death. The dataset is available as 14 separate .csv 
+        files for the top 14 highest peaks in the world. Before plotting, I have performed these preprocessing steps on the dataset:</p>
+      <ul>
+        <li>Selected the CSV files for the top 5 highest peaks: Mount Everest, K2, Kangchenjunga, Lhotse, and Makalu.</li>
+        <li>The dataset contains lengthy descriptions of the cause of death in some cases. Therefore, I applied preprocessing to condense these descriptions into specific categories. 
+          Ultimately, we classified the causes of death into 11 generic categories.</li>
+      </ul>
+      <p>For plotting I have chosen the <b>Cause of death</b> and <b>Mountains.</b> In some plots the <b>Death Count</b> is based on <b>Cause of death</b> stratified by Mountain. 
+        Whereas in others the death count is based on mountians stratified by cause of death. Therefore, the plotting gives various insights into the dataset under study.</p>
+    </div>
+    
+    <div class="plot-container">
+      <div class="plot-title">Original Visualization</div>
+      <div class="plot-description">
+        A grouped bar chart is a type of bar chart that displays data in the form of rectangular bars with the bards grouped by categories.
+        In this graph, the data has been stratified based on <b>Mountain</b> (x-axis) and <b>Death Count</b> (y-axis) is based on <b>Cause of death</b>. This graphs
+        gives clear insights for comparison across <b>Mountain</b> categorires. For example, we can see that Mount Everest has the most deaths due to <b>Avalanche</b> and <b>Fall</b>
+        in comparison to other <b>Mountains</b>. Moreover, it is also evident that <b>Fall</b> is prominent <b>Cause of death</b> across all categories. We can also see the individual 
+        <b>Death Count</b> due to specific cause across all <b>Mountains.</b>
+        <img src="../assets/hyp.jpg" alt="profile of gene promoter hypermethylation across human tumor types" class="bad_vis_image">
+      </div>
+    </div>
+
+    <div class="plot-container">
+      <div class="plot-title">Redesigned Visualization</div>
+      <div class="plot-description">
+        The heatmap effectively represents data density by using color gradients to show the distribution.
+        The heatmap shows the <b>Death Count</b> by <b>Cause of death</b> and <b>Mountain</b>, with color intensity representing the count. 
+        The major aspect that is hard to determine in other types of plots, heatmaps can provide insights into potential correlations. 
+        For instance, if certain <b>Cause of death</b> often occur together on the same <b>Mountain</b> but not on others, 
+        it may indicate a correlation between those causes specific to that <b>Mountain</b>. For instance, <b>Mount Everest</b> has the most
+        <b>Death Counts</b> due to <b>Avalanches</b> followed by <b>Fall</b> and <b>Exposure</b>. Similarly, <b>K2</b> has most deaths due to <b>Fall.</b>
+        Such correlation is most easy to most obvious in these kind of plots.
+      </div>
+    </div>
+
+    <div class="plot-container">
+      <div class="plot-title">Redesigned Visualization</div>
+      <div class="plot-description">
+        This heatmap applies <b>Logarithmic Scaling (base 10)</b> to the <b>Death Count</b>, providing a different perspective on the data. 
+        Log scaled plots offer several benefits, especially when dealing with data that spans dealing that wide range of values.
+        As it is clear from this plot that logarithmic scaling makes <b>small changes</b> in data more obvious, especially in the lower range of values.
+        Log scaling is useful where most values are concentrated in a narrow range, but there are a few extreme values. In comparison to simple heat map plot,
+        the log scaling has given highlighted patterns and trends that were not apparent in previous scale. For example, the previous analysis of
+        <b>Mount Everest</b> has become more obvious. Also, we only saw the most common <b>Cause of death</b> for <b>K2</b> is <b>Fall</b>. Here it has become
+        clear the second <b>Cause of death</b> are <b>Storm</b> and <b>Avalanches.</b>. This was not obvious in linear heatmap plot. Some enhanced features for 
+        other <b>Mountains</b> and <b>Cause of death</b> have become more obvious now.
+        
+      </div>
+    </div>
+    
+        <div class="plot-container">
+      <div class="plot-title">Conclusion</div>
+      <div class="plot-description">
+        In conclusion we have seen how different types of plots, such as <b>grouped bar charts</b>, <b>stacked bar charts</b>, <b>bubble charts</b>, 
+        <b>heatmaps</b>, and <b>log scaled plots</b>, allow for the identification of various patterns and trends in the data. Each plot has its own strength for 
+        different type of message. Some charts provide an insight into relationship between <b>Death Counts</b> while others provide a correlation between
+        the features under study. For instance, log scaled plots, can highlight the distribution of death counts across different 
+        <b>Causes of death</b> and <b>Mountains</b>, indicating where the data is concentrated. 
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>
+
