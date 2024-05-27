@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Assignment 2</title>
-   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega@5.29.0"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/vega-lite@5.18.1"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
   <style>
           body {
       font-family: Arial, sans-serif;
@@ -44,6 +44,12 @@
       overflow: hidden; 
     }
     
+        .viz {
+      margin: auto;
+      text-align: center; 
+      width: 80%; 
+    }
+    
       .plot-title { 
       font-size: 24px;
       font-weight: bold;
@@ -71,12 +77,12 @@
     margin-right: auto;
     width: 60%;}
     
-.plot-div {
-      width: 1200px;
-      height: 800px;
+	.plot-div {
+	display: block;
+	width: 100%;
       margin: 0 auto;
       background-color: transparent; 
-}
+	}
 
         .home-button {
       position: fixed;
@@ -89,77 +95,155 @@
       border-radius: 5px;
     }
     
+    .description em {
+  	color: #808080;
+	}
+	
+	.description {
+  	color: black;
+	}
+    
   </style>
-  <script>
-  </script>
 </head>
 <body>
   <a href="../index.html" class="home-button">To Home</a>
   
   <div class="content">
     <div style="background-color: #f0f0f0; border-radius: 10px; padding: 20px;">
-      <h1 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px;">Bad Visualization: Mountain Climbing Incidents</h1>
-      <p>This <a href="https://www.kaggle.com/datasets/rprkh15/mountaineering-deaths-14-tallest-mountains">dataset</a> contains information about various incidents related to mountain climbing, 
-        including date of incident, name of mountaineer, nationality of mountaineer, cause of death. The dataset is available as 14 separate .csv 
-        files for the top 14 highest peaks in the world. Before plotting, I have performed these preprocessing steps on the dataset:</p>
+      <h1 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px;">A Gene Hypermethylation Profile of Human Cancer</h1>
+      <p>This <a href="https://aacrjournals.org/cancerres/article/61/8/3225/508623/A-Gene-Hypermethylation-Profile-of-Human-Cancer1">research paper</a> 
+      analyzes a series of promoter hypermethylation changes in 12 genes (p16<sup>INK4a</sup>, p15<sup>INK4b</sup>, p14<sup>ARF</sup>, p73, APC, BRCA1, hMLH1, GSTP1, 
+      MGMT, CDH1, TIMP3, and DAPK), each rigorously characterising for association with abnormal gene silencing in cancer, 
+      in DNA from over 600 primary tumor samples representing 15 major tumor types. The primary tumor samples examined in the this study 
+      constitute over 600 specimens that cover 15 major tumor types (colon, stomach, pancreas, liver, kidney, lung, head and neck, 
+      breast, ovary, endometrium, kidney, bladder, brain, and leukemia and lymphomas). The dataset is presented in the form of legend table under 
+      the table. Therefore, before plotting, I have performed these preprocessing steps on the dataset:</p>
       <ul>
-        <li>Selected the CSV files for the top 5 highest peaks: Mount Everest, K2, Kangchenjunga, Lhotse, and Makalu.</li>
-        <li>The dataset contains lengthy descriptions of the cause of death in some cases. Therefore, I applied preprocessing to condense these descriptions into specific categories. 
-          Ultimately, we classified the causes of death into 11 generic categories.</li>
+        <li>Created a .csv <a href="https://github.com/msaadsaeed/portfolio/blob/main/assign2/data.csv">(data.csv)</a> file from the values given in legend table.</li>
       </ul>
-      <p>For plotting I have chosen the <b>Cause of death</b> and <b>Mountains.</b> In some plots the <b>Death Count</b> is based on <b>Cause of death</b> stratified by Mountain. 
-        Whereas in others the death count is based on mountians stratified by cause of death. Therefore, the plotting gives various insights into the dataset under study.</p>
     </div>
     
     <div class="plot-container">
       <div class="plot-title">Original Visualization</div>
       <div class="plot-description">
-        A grouped bar chart is a type of bar chart that displays data in the form of rectangular bars with the bards grouped by categories.
-        In this graph, the data has been stratified based on <b>Mountain</b> (x-axis) and <b>Death Count</b> (y-axis) is based on <b>Cause of death</b>. This graphs
-        gives clear insights for comparison across <b>Mountain</b> categorires. For example, we can see that Mount Everest has the most deaths due to <b>Avalanche</b> and <b>Fall</b>
-        in comparison to other <b>Mountains</b>. Moreover, it is also evident that <b>Fall</b> is prominent <b>Cause of death</b> across all categories. We can also see the individual 
-        <b>Death Count</b> due to specific cause across all <b>Mountains.</b>
+        The original visualization represents the <b>frequency of hypermethylation</b> across various <b>genes</b> and <b>tumor types</b>. This visualization 
+        consists of two parts:
+        <ul>
+        	<li><b>3D Bar Chart (Part A):</b></li>
+        	<ul>
+        		<li>The X-axis represent tumor types (e.g. Lungs, Head-Neck, etc.)</li>
+        		<li>The Y-axis represent frequnecy of Hypermethylation (0%-100%)</li>
+        		<li>The bars are color coded to heading in Part B relating to different genes.
+        		<li>The height of bars represent the hypermethylation frequencies for each tumor type and gene.</li>
+        	</ul>
+        	<li><b>Data Table (Part B):</b></li>
+        	<ul>
+        		<li>Represents the same data in tabular form.</li>
+        		<li>"N.D"" indicates "No data avaialble".</li>
+        	</ul>
+        </ul>	
+        <b>Problems:</b> One may find it difficult to read the 3D-Bar Graph due to following reasons:
+        <ul>
+        	<li>Overlapping data: The bars are overlapping in most the cases making it hard to distinguish between different values.</li>
+        	<li>Bar height: It is really hard to find the correct value of frequency from y-axis leading to misinterpretation of data.</li>
+        	<li>Color Coding: The bars colored with respect to Genes and it is hard to distinguish between different colors. For example,
+        	<b>MGMT</b> and <b>p73</b> have almost same color code.</li>
+        	<li>Clutter: The 3D aspect is adding unnecessary complexity and clutter making it hard to grasp a quick insight into the information. For example,
+        	it is really hard to read the value of Tumor Types for repsective Genes wihtout looking up in the table.</li>
+        	<li>Labels: For genes, one may have to look at color codes given in Part B of the visualization.</li>
+        	<li>Empty spaces: It is not clear in the 3D-Bar graph what message the empty spaces convey without looking at the data table.</li>
+        <br>
         <img src="../assets/hyp.jpg" alt="profile of gene promoter hypermethylation across human tumor types" class="bad_vis_image">
       </div>
     </div>
 
     <div class="plot-container">
-      <div class="plot-title">Redesigned Visualization</div>
+      <div class="plot-title">Redesigned Visualization: Heatmap with Labels</div>
       <div class="plot-description">
-        The heatmap effectively represents data density by using color gradients to show the distribution.
-        The heatmap shows the <b>Death Count</b> by <b>Cause of death</b> and <b>Mountain</b>, with color intensity representing the count. 
-        The major aspect that is hard to determine in other types of plots, heatmaps can provide insights into potential correlations. 
-        For instance, if certain <b>Cause of death</b> often occur together on the same <b>Mountain</b> but not on others, 
-        it may indicate a correlation between those causes specific to that <b>Mountain</b>. For instance, <b>Mount Everest</b> has the most
-        <b>Death Counts</b> due to <b>Avalanches</b> followed by <b>Fall</b> and <b>Exposure</b>. Similarly, <b>K2</b> has most deaths due to <b>Fall.</b>
-        Such correlation is most easy to most obvious in these kind of plots.
-      </div>
-    </div>
-
-    <div class="plot-container">
-      <div class="plot-title">Redesigned Visualization</div>
-      <div class="plot-description">
-        This heatmap applies <b>Logarithmic Scaling (base 10)</b> to the <b>Death Count</b>, providing a different perspective on the data. 
-        Log scaled plots offer several benefits, especially when dealing with data that spans dealing that wide range of values.
-        As it is clear from this plot that logarithmic scaling makes <b>small changes</b> in data more obvious, especially in the lower range of values.
-        Log scaling is useful where most values are concentrated in a narrow range, but there are a few extreme values. In comparison to simple heat map plot,
-        the log scaling has given highlighted patterns and trends that were not apparent in previous scale. For example, the previous analysis of
-        <b>Mount Everest</b> has become more obvious. Also, we only saw the most common <b>Cause of death</b> for <b>K2</b> is <b>Fall</b>. Here it has become
-        clear the second <b>Cause of death</b> are <b>Storm</b> and <b>Avalanches.</b>. This was not obvious in linear heatmap plot. Some enhanced features for 
-        other <b>Mountains</b> and <b>Cause of death</b> have become more obvious now.
+        <p class="description">
+        The <a href="https://vega.github.io/vega-lite/examples/layer_text_heatmap.html"> heatmap with labels</a> shows the <b>Frequency of Hypermethylation</b> by <b>Tumor Type</b> and <b>Genes</b>, with color intensity representing the frequency.
+        It is really easy to tell the main trends in this plot. For example <b>CDH1</b> shows significant methylation in <b>Esophagus</b>. This is
+        clearly visible by color coded gradient. Similar trends are readily distinguishable by a glance at the 2D-heatmap plot. For specific <b>Tumor Type</b>
+        and <b>Genes</b> it is really easily to find the trend. For example, <b>p16INK4a</b> shows significant methylation in colon, and lymphoma.
+        The white cells with <em><b>"N.D"</b></em> text show that certain gene-tumor combinations have no determined values. Nevertheless,
+        the key-aspects of this plot are:
+        <ul>
+        	<li>Clarity: The data is displayed in a simple manner with clarity. There is no complexity or clutter.</li>
+        	<li>No Overlapping: Unlike the 3D-chart, the heatmap does not have issues of overlapping data ensuring that all information is visible.</li>
+        	<li>Color Coding: The heat intensity (color gradient) is used which represents different frequencies provide immediate clues about the magnitude of values.</li>
+        	<li>Overlaying Labels: Text labels directly on the heatmap provide immediate, and precise values eliminating the need for referencing a legend or table.</li>
+        </ul>
         
+        </p>
       </div>
-    </div>
-    
-        <div class="plot-container">
-      <div class="plot-title">Conclusion</div>
-      <div class="plot-description">
-        In conclusion we have seen how different types of plots, such as <b>grouped bar charts</b>, <b>stacked bar charts</b>, <b>bubble charts</b>, 
-        <b>heatmaps</b>, and <b>log scaled plots</b>, allow for the identification of various patterns and trends in the data. Each plot has its own strength for 
-        different type of message. Some charts provide an insight into relationship between <b>Death Counts</b> while others provide a correlation between
-        the features under study. For instance, log scaled plots, can highlight the distribution of death counts across different 
-        <b>Causes of death</b> and <b>Mountains</b>, indicating where the data is concentrated. 
-      </div>
+      
+      <div class="plot-div" style="width: 50%;">
+	  <script>
+	    const spec = {
+	  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+	  "description": "Heatmap of fold percentages for different cancer genes and types",
+	  "width": 1020,
+	  "height": 400,
+	  "data": {
+	    "url": "https://raw.githubusercontent.com/msaadsaeed/portfolio/main/assign2/data.csv",
+	    "format": {"type": "csv", "csvdata": {"header": ["Genes", "Tumor Type", "Frequency"]}}
+	  },
+	  "layer": [
+	    {
+	      "mark": "rect",
+	      "encoding": {
+	        "x": {"field": "Tumor Type", "type": "nominal"},
+	        "y": {"field": "Genes", "type": "nominal"},
+	        "color": {
+	          "field": "Frequency",
+	          "type": "quantitative",
+	          "scale": {"scheme": "greenblue", "domain": [0, 100]}
+	        },
+	        "tooltip": [
+	          {"field": "Frequency", "type": "quantitative", "title": "Frequency Percentage"},
+	          {"field": "Genes", "type": "nominal", "title": "Gene"},
+	          {"field": "Tumor Type", "type": "nominal", "title": "Type"}
+	        ]
+	      }
+	    },
+	    {
+	      "mark": {"type": "text", "fontSize": 16, "fontWeight": "bold"},
+	      "encoding": {
+	        "x": {"field": "Tumor Type", "type": "nominal"},
+	        "y": {"field": "Genes", "type": "nominal"},
+	        "text": {
+	          "condition": {
+	            "test": "datum['Frequency'] != null",
+	            "field": "Frequency",
+	            "type": "nominal"
+	          },
+	          "value": "N.D"
+	        },
+	        "color": {
+	          "condition": {
+	            "test": "datum['Frequency'] !== null && datum['Frequency'] > -1",
+	            "value": "black"
+	          },
+	          "value": "lightgrey"
+	        }
+	      }
+	    }
+	  ],
+	  "config": {
+	    "axis": {
+	      "grid": true,
+	      "tickBand": "extent",
+	      "titleFontSize": 18,
+	      "labelFontSize": 14,
+	      "tickSize": 5
+	    }
+	  },
+	  "title": "Profile of gene promoter hypermethylation across human tumor types"
+	};
+	    vegaEmbed(".plot-div", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+	  </script>
+	</div>
+      
     </div>
     
   </div>
