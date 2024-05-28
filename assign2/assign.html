@@ -192,8 +192,8 @@
 	    {
 	      "mark": "rect",
 	      "encoding": {
-	        "x": {"field": "Tumor Type", "type": "nominal"},
-	        "y": {"field": "Genes", "type": "nominal"},
+	        "x": {"field": "Genes", "type": "nominal"},
+	        "y": {"field": "Tumor Type", "type": "nominal"},
 	        "color": {
 	          "field": "Frequency",
 	          "type": "quantitative",
@@ -209,11 +209,11 @@
 	    {
 	      "mark": {"type": "text", "fontSize": 16, "fontWeight": "bold"},
 	      "encoding": {
-	        "x": {"field": "Tumor Type", "type": "nominal"},
-	        "y": {"field": "Genes", "type": "nominal"},
+	        "x": {"field": "Genes", "type": "nominal"},
+	        "y": {"field": "Tumor Type", "type": "nominal"},
 	        "text": {
 	          "condition": {
-	            "test": "datum['Frequency'] != null",
+	            "test": "datum['Frequency'] !== null",
 	            "field": "Frequency",
 	            "type": "nominal"
 	          },
@@ -235,7 +235,8 @@
 	      "tickBand": "extent",
 	      "titleFontSize": 18,
 	      "labelFontSize": 14,
-	      "tickSize": 5
+	      "tickSize": 5,
+	      "labelAngle": 0
 	    }
 	  },
 	  "title": "Profile of gene promoter hypermethylation across human tumor types"
