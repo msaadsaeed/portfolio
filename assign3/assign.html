@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 3</title>
+  <style>
+          body {
+      font-family: Arial, sans-serif;
+      background-image: url('../assets/mian_bg.jpg');
+      background-size: cover;
+      background-attachment: fixed; 
+      background-repeat: no-repeat;
+      background-position: center center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .about-title {
+      margin-bottom: 10px;
+      padding: 10px; 
+      padding-bottom: 20px;
+    }
+    
+    .content {
+      word-wrap: break-word;
+      background-color: rgba(75, 75, 125, 0.9);
+      padding: 20px;
+      width: 1200px;
+    }
+    
+    .plot-container {
+      margin-bottom: 50px;
+      color: white; 
+      background-color: transparent; 
+      border-radius: 10px; 
+      overflow: hidden; 
+    }
+    
+        .viz {
+      margin: auto;
+      text-align: center; 
+      width: 80%; 
+    }
+    
+      .plot-title { 
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background-color:#1b1b2b; 
+      padding: 15px; 
+      margin-top: 20px;
+      margin-bottom: -10px;
+      text-align: center;
+      color: white;
+      border-radius: 10px;
+    }
+    .plot-description {
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 10px; 
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      color: black;
+    }
+    
+    .bad_vis_image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;}
+    
+	.plot-div {
+	display: block;
+	width: 100%;
+      margin: 0 auto;
+      background-color: transparent; 
+	}
+
+        .home-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+    .description em {
+  	color: #808080;
+	}
+	
+	.description {
+  	color: black;
+	}
+    
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="home-button">To Home</a>
+  
+  <div class="content">
+    <div style="background-color: #f0f0f0; border-radius: 10px; padding: 20px;">
+      <h1 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px;">Global Electricity Statistics 2021</h1>
+
+		<p>The aim of this visualization is to analyze global electricity statistics for the year 2021 using this <a href="https://www.kaggle.com/datasets/akhiljethwa/global-electricity-statistics">dataset</a>, which provides annual data from 1980 to 2021. The dataset includes four main features, detailed below, with all information presented in billion kWh and million kW.</p>
+		
+		<h3>Main Features:</h3>
+		<ul>
+		  <li><b>Country:</b> Name of the country</li>
+		  <li><b>Region:</b> Geographic region of the country</li>
+		  <li><b>Electricity Transaction:</b> Seven types of transactions or activities, detailed below</li>
+		  <li><b>Years:</b> Data spanning from 1980 to 2021, across 41 columns</li>
+		</ul>
+		
+		<h3>Electricity Activities/Transactions:</h3>
+		<ul>
+		  <li><b>Net Generation (billion kWh):</b> Electricity production</li>
+		  <li><b>Net Consumption (billion kWh):</b> Electricity consumption</li>
+		  <li><b>Imports (billion kWh):</b> Electricity imports</li>
+		  <li><b>Exports (billion kWh):</b> Electricity exports</li>
+		  <li><b>Net Imports (billion kWh):</b> Net electricity imports</li>
+		  <li><b>Installed Capacity (million kW):</b> Maximum electricity output a power plant can produce under specified conditions</li>
+		  <li><b>Distribution Losses (billion kWh):</b> Losses occurring during the transmission and distribution of electricity from supply sources to distribution points</li>
+		</ul>
+           
+    </div>
+    
+    <div class="plot-container">
+      <div class="plot-title">Visualizations</div>
+      <div class="plot-description">
+		<p>For visualization, <a href="https://www.tableau.com/">Tableau</a> has been utilized to depict global electricity statistics through an interactive <b>map-based</b> plot. Users can interact with the plot in the following ways:</p>
+			<ul>
+			  <li>By selecting different <b>Features</b> from the right pane, users can view the relevant information in both 
+			  the map-based plot and the horizontal bar plot at the bottom.</li>
+			  <li>The specified unit for the selected feature is automatically updated in the legend.</li>
+			  <li>Hovering over a country (on the map or bar chart) displays the exact value of the selected feature.</li>
+			  <li>Selecting a country in either plot highlights it on both the map and the bar graphs.</li>
+			</ul>
+			<p>Additionally, a <b>Tornado chart </b> (shown on right side) has been used to focus on the imports and exports of 
+			each country, with the chart ordered by increasing exports.</p>
+		      
+        	<div class='tableauPlaceholder' id='viz1717445311235' style='position: relative;'>
+	        	<noscript>
+	        		<a href='#'><img alt='electricity_stats ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;gl&#47;global_electricity_stats&#47;electricity_stats&#47;1_rss.png' style='border: none' /></a>
+	        	</noscript>
+	        	<object class='tableauViz'  style='display:none;'>
+		        	<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+		        	<param name='embed_code_version' value='3' />
+		        	<param name='site_root' value='' />
+		        	<param name='name' value='global_electricity_stats&#47;electricity_stats' />
+		        	<param name='tabs' value='no' />
+		        	<param name='toolbar' value='yes' />
+		        	<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;gl&#47;global_electricity_stats&#47;electricity_stats&#47;1.png' />
+		        	<param name='animate_transition' value='yes' />
+		        	<param name='display_static_image' value='yes' />
+		        	<param name='display_spinner' value='yes' />
+		        	<param name='display_overlay' value='yes' />
+		        	<param name='display_count' value='yes' />
+		        	<param name='language' value='en-US' />
+		        	<param name='filter' value='publish=yes' />
+	        	</object>
+        	</div>
+        	<script type='text/javascript'>
+				 var divElement = document.getElementById('viz1717445311235');
+				 var vizElement = divElement.getElementsByTagName('object')[0];                   
+				 if ( divElement.offsetWidth > 800 ) 
+				 	{ vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
+			 	 else if ( divElement.offsetWidth > 500 ) 
+			 	 	{ vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
+			 	 else { vizElement.style.width='100%';vizElement.style.height='1127px';}                     
+			 	 var scriptElement = document.createElement('script');                    
+			 	 scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+			 	 vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+		 	 </script>
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>
+
