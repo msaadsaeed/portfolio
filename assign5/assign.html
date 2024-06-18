@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 5</title>
+  <style>
+          body {
+      font-family: Arial, sans-serif;
+      background-image: url('../assets/mian_bg.jpg');
+      background-size: cover;
+      background-attachment: fixed; 
+      background-repeat: no-repeat;
+      background-position: center center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .about-title {
+      margin-bottom: 10px;
+      padding: 10px; 
+      padding-bottom: 20px;
+    }
+    
+    .content {
+      word-wrap: break-word;
+      background-color: rgba(75, 75, 125, 0.9);
+      padding: 20px;
+      width: 1200px;
+    }
+    
+    .plot-container {
+      margin-bottom: 50px;
+      color: white; 
+      background-color: transparent; 
+      border-radius: 10px; 
+      overflow: hidden; 
+    }
+    
+        .viz {
+      margin: auto;
+      text-align: center; 
+      width: 80%; 
+    }
+    
+      .plot-title { 
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      background-color:#1b1b2b; 
+      padding: 15px; 
+      margin-top: 20px;
+      margin-bottom: -10px;
+      text-align: center;
+      color: white;
+      border-radius: 10px;
+    }
+    .plot-description {
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 10px; 
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      color: black;
+    }
+    
+    .bad_vis_image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;}
+    
+	.plot-div {
+	display: block;
+	width: 100%;
+      margin: 0 auto;
+      background-color: transparent; 
+	}
+
+        .home-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    
+    .description em {
+  	color: #808080;
+	}
+	
+	.description {
+  	color: black;
+	}
+	
+	.video-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .video-container video {
+      max-width: 100%;
+      height: auto;
+    }
+    
+  </style>
+</head>
+<body>
+  <a href="../index.html" class="home-button">To Home</a>
+  
+  <div class="content">
+    <div style="background-color: #f0f0f0; border-radius: 10px; padding: 20px;">
+      <h1 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px;">Making Tableau Interactive++</h1>
+      <h2 style="text-align: center; background-color: white; border-radius: 10px; padding: 10px; margin-top: -40px">User-Driven Data Feature and Plot Selection</h2>
+
+		<p>The aim of this tutorial is to to create <b>interactive and customizable visualizations in Tableau</b>, enabling users to select the data 
+		they want to plot and choose the type of plot that best represents their data. This tutorial will guide through the process of adding interactive 
+		buttons and controls that will enable user to dynamically choose different features of data and different types of plot. The tutorial is divied into <b>two
+		sections</b>. First section guides to make the plot interactive by giving using the control to see specific features of data. While the second part guides on 
+		how to enable plot type choice feature.<br><br>
+		<b>Pre-reqs: </b> <i>Microsoft Excel, Tableau (Basic Plots), Data Visualization Basics</i>
+		
+		<h3>Intro to Tableau</h3>
+		Tableau is a powerful data visualization tool designed to help users see and understand their data. It allows for the creation of a wide range of 
+		interactive and shareable dashboards that can display trends, variations, and insights through graphs and charts. Tableau's user-friendly interface 
+		enables both beginners and advanced users to connect, analyze, and visualize their data without extensive programming knowledge. With its ability to 
+		handle large datasets from various sources, including Excel, SQL databases, and cloud services, Tableau provides a versatile platform for making 
+		data-driven decisions. Whether used in business, education, or research, Tableau transforms raw data into actionable insights with ease and efficiency. Tableau
+		is available in both web-based and desktop versions.
+		
+		<h2>• User-Driven Data Feature Selection</h2>
+		<h3>Step 1: Download Data, Import and Check Formatting/Datatypes</h3>
+		<h3><u>1.1 - Dataset</u></h3>
+		<p>For this tutorial we will use <a href='https://www.kaggle.com/datasets/akhiljethwa/global-electricity-statistics'>Global Electricity Statistics</a> dataset. 
+		The dataset includes four main features, detailed below, with all information presented in billion kWh and million kW.</p>
+		<h4>- Main Features:</h4>
+
+		<ul>
+		    <li><b>C</b>ountry: Name of the country</li>
+		    <li><b>R</b>egion: Geographic region of the country</li>
+		    <li><b>E</b>lectricity Transaction: Seven types of transactions or activities, detailed below</li>
+		    <li><b>Y</b>ears: Data spanning from 1980 to 2021, across 41 columns</li>
+		</ul>
+
+		<h4>- Electricity Activities/Transactions:</h4>
+		<ul>
+		    <li><b>N</b>et Generation (billion kWh): Electricity production</li>
+		    <li><b>N</b>et Consumption (billion kWh): Electricity consumption</li>
+		    <li><b>I</b>mports (billion kWh): Electricity imports</li>
+		    <li><b>E</b>xports (billion kWh): Electricity exports</li>
+		    <li><b>N</b>et Imports (billion kWh): Net electricity imports</li>
+		    <li><b>I</b>nstalled Capacity (million kW): Maximum electricity output a power plant can produce under specified conditions</li>
+		    <li><b>D</b>istribution Losses (billion kWh): Losses occurring during the transmission and distribution of electricity from supply sources to distribution points</li>
+		</ul>
+		
+		<h3><u>1.2 - Import Data</u></h3>
+		The process begins by launching Tableau and selecting the "Connect" pane on the start page. Here, we can choose "Microsoft Excel" as our data source. On
+		this pane we can see more options for data source such as Text file, JSON file, PDF file etc. Once selected, we will be prompted to locate and open 
+		your Excel file. <br>
+		<i><b>Caution: </b>Some .csv files may not work with Tableau Desktop due to different encoding.
+		Tableau only supports UTF-8 encoding format. However, the web-based version can read xls, xlsx, and csv. I recommend to use xls and xlsx formats which are 
+		supported by default in Tableau. </i><br><br>
+		
+		<h3><u>1.3 - Check Formatting/Datatypes</u></h3>
+		Once the data has been imported, sheets in excel file can be seen in left pane of Tableau window. Since we have only one sheet, we can only see a sheet named
+		Global Electricity Statistics.
+		After connecting to our Excel file, we can drag the desired sheets into the right pane of Tableau's workspace. 
+		This action will allow us to view a preview of data, making it easier to understand its structure and content. In web-version we may see the
+		Update button. Clicking on it will automatically choose the correct data types for each column. 
+		
+		However, sometimes the issues may persist requiring manual 
+		tweeking with data. So now lets inspect the data if the columns names, and data types are correct.
+		<ul>
+		  <li><b>Column Names</b></li>
+		  We can see that column names are F1, F2, ... Fn. This is because Tableau was unable to identify the column names.
+		  To resolve this, <b>right click</b> on imported sheet in explore pane, and choose <b>"field names are in first row"</b>. This will automatically
+		  set the first row as column names.
+		  <li><b>Data types</b></li>
+		  After resolving the columns names problem, the data types are automatically updated. Still we may be interested in converting some data types. For this, we can
+		  click on the data type icon at top-right corner of column. From drop-down menu the user has many options to choose from. For example, for Country column,
+		  we goto Geographic role and choose Country/Region.
+	  </ul>
+	  
+	  	<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step1.1.mp4" type="video/mp4">
+			</video>
+		</div>
+	  
+		<h3>Step 2: Filters in Tableau</h3>
+		Now, lets create our first sheet and start playing with our data. We have columns ranging from 1980 to 2021. For this tutorial, we will only be plotting the data
+		for year 2021. I urge you to try other years as well.<br>
+		Once the data has been imported click on Sheet 1 to the right of data source in bottom left corner. In this view, we can see the data fields in left-pane. Top-pane
+		has some data plotting and data manipulation tools. Whereas the right-pane will be used to display plots. <br>
+		Now lets see explore the functionalities of <b>filter</b> tool.We are interested in Electricity Activities/Transactions column. The columns is named as feature
+		in our Excel file.
+		<ul>
+			<li>Drag and drop this filed from left-pane into the filter panel.</li>
+			<li>Double-click on this field in filters column.</li>
+			<li>We will be presented with various options to choose from.</li>
+			<li>We can choose the specific features in this dialogue box. Only the selected features will be plotted.</li>
+			<li>We can also apply other rules on data to plot by choosing from wildcard, top/bottom or some condition.</li>
+		</ul>
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step1.2.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		Now, we are familiar with the <b>Filter</b> tool in Tableau. Now lets apply to our data.
+		<h3>Step 3: Make a Chloropeth plot and apply filter from filters pane</h3>
+		Drag the <b>Country</b> field to rows and 2021 (or year of your choice) field to columns in plot-pane of Tableau. Then from <b>Show me</b> menu at top 
+		right corner, select maps (row 2 col 2). First we will not be able to see anything plotted. Why? Because a filter is applied and we have not chosen 
+		what to plot from filter. Now lets double-click on filter, and choose a value and click apply. The chloropeth plot will be visible now and 
+		updated with specific data. 
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step1.2.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		<h3>Step 4: Give Filter Control to User</h3>
+		<h3>Working Demo</h3>
+		<h2>• User-Driven Plot Selection</h2>
+		<h3>Step 1: Download Data, Import and Check Formatting</h3>
+		<h3>Step 2: Make Different Plots</h3>
+		<h3>Step 3: Create a Custom Paramter</h3>
+		<h3>Step 4: Create a Chart Type Feature</h3>
+		<h3>Step 5: Apply Chart Type Feature to Parameter</h3>
+		<h3>Step 6: Create a Dashboard</h3>
+		<h3>Step 7: Placing Sheet - 1</h3>
+		<h3>Step 8: Placing Sheet - 2</h3>
+		<h3>Step 9: Placing Sheet - 3</h3>
+		<h3>Step 10: Placing Sheet - 4</h3>
+		<h3>Working Demo</h3>      
+    </div>
+    
+    <div class="plot-container">
+      <div class="plot-title">Visualizations</div>
+      <div class="plot-description">
+		<p>For visualization, <a href="https://www.tableau.com/">Tableau</a> has been utilized to depict global electricity statistics through an interactive <b>map-based</b> plot. Users can interact with the plot in the following ways:</p>
+			<ul>
+			  <li>By selecting different <b>Features</b> from the right pane, users can view the relevant information in both 
+			  the map-based plot and the horizontal bar plot at the bottom.</li>
+			  <li>The specified unit for the selected feature is automatically updated in the legend.</li>
+			  <li>Hovering over a country (on the map or bar chart) displays the exact value of the selected feature.</li>
+			  <li>Selecting a country in either plot highlights it on both the map and the bar graphs.</li>
+			</ul>
+			<p>Additionally, a <b>Tornado chart </b> (shown on right side) has been used to focus on the imports and exports of 
+			each country, with the chart ordered by increasing exports.</p>
+		      
+        	<div class='tableauPlaceholder' id='viz1717445311235' style='position: relative;'>
+	        	<noscript>
+	        		<a href='#'><img alt='electricity_stats ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;gl&#47;global_electricity_stats&#47;electricity_stats&#47;1_rss.png' style='border: none' /></a>
+	        	</noscript>
+	        	<object class='tableauViz'  style='display:none;'>
+		        	<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+		        	<param name='embed_code_version' value='3' />
+		        	<param name='site_root' value='' />
+		        	<param name='name' value='global_electricity_stats&#47;electricity_stats' />
+		        	<param name='tabs' value='no' />
+		        	<param name='toolbar' value='yes' />
+		        	<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;gl&#47;global_electricity_stats&#47;electricity_stats&#47;1.png' />
+		        	<param name='animate_transition' value='yes' />
+		        	<param name='display_static_image' value='yes' />
+		        	<param name='display_spinner' value='yes' />
+		        	<param name='display_overlay' value='yes' />
+		        	<param name='display_count' value='yes' />
+		        	<param name='language' value='en-US' />
+		        	<param name='filter' value='publish=yes' />
+	        	</object>
+        	</div>
+        	<script type='text/javascript'>
+				 var divElement = document.getElementById('viz1717445311235');
+				 var vizElement = divElement.getElementsByTagName('object')[0];                   
+				 if ( divElement.offsetWidth > 800 ) 
+				 	{ vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
+			 	 else if ( divElement.offsetWidth > 500 ) 
+			 	 	{ vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
+			 	 else { vizElement.style.width='100%';vizElement.style.height='1127px';}                     
+			 	 var scriptElement = document.createElement('script');                    
+			 	 scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+			 	 vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+		 	 </script>
+      </div>
+    </div>
+    
+  </div>
+
+</body>
+</html>
+
