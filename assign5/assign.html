@@ -168,6 +168,8 @@
 		    <li><b>D</b>istribution Losses (billion kWh): Losses occurring during the transmission and distribution of electricity from supply sources to distribution points</li>
 		</ul>
 		
+		The Excel file can be downloaded <a href=''>here</a>.
+		
 		<h3><u>1.2 - Import Data</u></h3>
 		The process begins by launching Tableau and selecting the "Connect" pane on the start page. Here, we can choose "Microsoft Excel" as our data source. On
 		this pane we can see more options for data source such as Text file, JSON file, PDF file etc. Once selected, we will be prompted to locate and open 
@@ -304,6 +306,7 @@
         <li>The dataset contains lengthy descriptions of the cause of death in some cases. Therefore, I applied preprocessing to condense these descriptions into specific categories. 
           Ultimately, we classified the causes of death into 11 generic categories.</li>
       	</ul>
+      	The processed Excel file can be downloaded <a href=''>here</a>.
       <p>For plotting I have chosen the <b>Cause of death</b> and <b>Mountains.</b> In some plots the <b>Death Count</b> is based on <b>Cause of death</b> stratified by Mountain. 
         Whereas in others the death count is based on mountians stratified by cause of death. Therefore, the plotting gives various insights into the dataset under study.</p>
    		<h2>Step 2: Make Different Plots</h2>
@@ -369,8 +372,32 @@
 		</div>
 		
 		<h2>Step 6: Create a Custom Dashboard</h2>
-		<h3>Step 7: Placing Sheets</h3>
-		<h3>Working Demo</h3>  
+		Create a new dashboard. And follow the video to carefully place horizontal and vertical containers in the dashboard. This is tricky part and may need
+		adjusting the placement of containers. You may experiement by trying different settings of container.
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step2.6.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		<h2>Step 7: Placing Sheets</h2>
+		Now follow this video to place sheets accordingly. This is a tricky part and may need a little bit tweaking with the placement of sheets and containers. The sheet
+		titles are removed for a clean look. After this step, we can see that dashboard is more interactive now providing user the capability to choose plot and gain 
+		insights into data through different visualizations. We can also see the legends are also dynamic and updated automatically based on type of plot.
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step2.7.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		After these steps, publish the dashboard and embed link in website. Now the user will be able to choose different plots and do analysis on data. A working demo of this 
+		tutorial is also given below.
+		
+		<h2>Working Demo</h2>  
+		
+		<div class='tableauPlaceholder' id='viz1718783734425' style='position: relative'><noscript><a href='#'><img alt='choose_plot ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ch&#47;chart_type_choice&#47;choose_plot&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='chart_type_choice&#47;choose_plot' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ch&#47;chart_type_choice&#47;choose_plot&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1718783734425');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='1050px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='1050px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1527px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 		
    	</div>
       </div>
