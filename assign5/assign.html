@@ -295,17 +295,84 @@
     <div class="plot-container">
       <div class="plot-title">User-Driven Plot Selection</div>
       <div class="plot-description">
-		<h3>Step 1: Download Data, Import and Check Formatting</h3>
-		<h3>Step 2: Make Different Plots</h3>
-		<h3>Step 3: Create a Custom Paramter</h3>
-		<h3>Step 4: Create a Chart Type Feature</h3>
-		<h3>Step 5: Apply Chart Type Feature to Parameter</h3>
-		<h3>Step 6: Create a Dashboard</h3>
-		<h3>Step 7: Placing Sheet - 1</h3>
-		<h3>Step 8: Placing Sheet - 2</h3>
-		<h3>Step 9: Placing Sheet - 3</h3>
-		<h3>Step 10: Placing Sheet - 4</h3>
+		<h2>Step 1: Download Data, Import and Check Formatting</h2>
+		<p>For this tutorial we use this <a href="https://www.kaggle.com/datasets/rprkh15/mountaineering-deaths-14-tallest-mountains">dataset</a> which contains information about various incidents related to mountain climbing, 
+        including date of incident, name of mountaineer, nationality of mountaineer, cause of death. The dataset is available as 14 separate .csv 
+        files for the top 14 highest peaks in the world. Before plotting, I have performed these preprocessing steps on the dataset:</p>
+      	<ul>
+        <li>Selected the CSV files for the top 5 highest peaks: Mount Everest, K2, Kangchenjunga, Lhotse, and Makalu.</li>
+        <li>The dataset contains lengthy descriptions of the cause of death in some cases. Therefore, I applied preprocessing to condense these descriptions into specific categories. 
+          Ultimately, we classified the causes of death into 11 generic categories.</li>
+      	</ul>
+      <p>For plotting I have chosen the <b>Cause of death</b> and <b>Mountains.</b> In some plots the <b>Death Count</b> is based on <b>Cause of death</b> stratified by Mountain. 
+        Whereas in others the death count is based on mountians stratified by cause of death. Therefore, the plotting gives various insights into the dataset under study.</p>
+   		<h2>Step 2: Make Different Plots</h2>
+   		For this tutorial, we will make four different types of plots:
+   		
+   		<ul>
+   			<li>Stacked Bar Plot</li>
+   			<li>Map Plot</li>
+   			<li>Grouped Bar Chart</li>
+   			<li>Bubble Plot</li>
+   		</ul>
+   		
+   		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step2.2.mp4" type="video/mp4">
+			</video>
+		</div>
+   		
+		<h2>Step 3: Create a Custom Paramter</h2>
+		Now we will create a custom parameter:
+		<ul>
+			<li>Right-click in <b>Data Pane</b> or click <b>Drop Down Menu</b> and select <b>Create Parameter</b>. Name this parameter as <b>select_sheet</b>.</li>
+			<li>Select <b>Data type</b> as <b>String</b> and <b>Allowable Values</b> as <b>List</b>.</li>
+			<li>Now add the <b>Sheet Name</b> in Value column whereas the alias in Display As column. The alias should describe the type of sheet for ease.</li>
+			<li>Click OK. Now the parameter can be seen in bottom of data pane under parameter section.</li>
+		</ul>
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step2.3.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		<h2>Step 4: Create a Chart Filter</h2>
+		The purpose of this step is to make a filter to choose chart type. This can be done by:
+		<ul>
+			<li>Click on the paramter <b>select_sheet</b></li>
+			<li>Under <b>Create</b> selecting <b>Calculated Field</b>.</li>
+			<li>Name this field as <b>chart_type_filter</b>.</li>
+		</ul>
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step2.4.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		<h2>Step 5: Apply Chart Type Filter to Parameter</h2>
+		Now lets apply this filter to select chart type:
+		
+		<ul>
+			<li>Right-click on parameter <b>select_sheet</b> and click Show Parameter.</li>
+			<li>For each Plot Type Sheet: Select the plot type from parameter in right-pane, move the <b>chart_type_filter</b> to <b>Filter Pane</b>.</li>
+			<li>A dialog box will open. Click on <b>Condition</b> from top menu.</li>
+			<li>For current sheet plot (e.g. Stacked_Bar_Plot), type this: [select_sheet] = 'Stacked_Bar_plot'. Here we use the alias that we set while making parameter.</li>
+			<li>After this we can see that only selected type of chart is visible.</li>
+		</ul>
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step2.5.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		<h2>Step 6: Create a Custom Dashboard</h2>
+		<h3>Step 7: Placing Sheets</h3>
 		<h3>Working Demo</h3>  
+		
+   	</div>
       </div>
     </div>
     
