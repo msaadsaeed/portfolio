@@ -68,7 +68,7 @@ body::before {
   background-color: #fff;
   border-radius: 20%;
   margin: 20px auto;
-  background-image: url('assets/pic.jpg');
+  background-image: url('./assets/pic.jpg');
   background-size: cover;
   background-position: center;
 }
