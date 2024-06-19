@@ -135,9 +135,16 @@
 		handle large datasets from various sources, including Excel, SQL databases, and cloud services, Tableau provides a versatile platform for making 
 		data-driven decisions. Whether used in business, education, or research, Tableau transforms raw data into actionable insights with ease and efficiency. Tableau
 		is available in both web-based and desktop versions.
+		<br><br>
+		<b>Caution: </b><i>Some .csv files may not work with Tableau Desktop due to different encoding.
+		Tableau only supports UTF-8 encoding format. However, the web-based version can read xls, xlsx, and csv. I recommend to use xls and xlsx formats which are 
+		supported by default in Tableau. </i><br>
+		<b>Caution:</b> <i>Some features may not work in Tableau Public (online version). For full functionality I urge to use Desktop version.</i>
 		
-		<h2>• User-Driven Data Feature Selection</h2>
-		<h3>Step 1: Download Data, Import and Check Formatting/Datatypes</h3>
+	<div class="plot-container">
+      <div class="plot-title">User-Driven Data Feature Selection</div>
+      <div class="plot-description">
+		<h2>Step 1: Download Data, Import and Check Formatting/Datatypes</h2>
 		<h3><u>1.1 - Dataset</u></h3>
 		<p>For this tutorial we will use <a href='https://www.kaggle.com/datasets/akhiljethwa/global-electricity-statistics'>Global Electricity Statistics</a> dataset. 
 		The dataset includes four main features, detailed below, with all information presented in billion kWh and million kW.</p>
@@ -165,9 +172,6 @@
 		The process begins by launching Tableau and selecting the "Connect" pane on the start page. Here, we can choose "Microsoft Excel" as our data source. On
 		this pane we can see more options for data source such as Text file, JSON file, PDF file etc. Once selected, we will be prompted to locate and open 
 		your Excel file. <br>
-		<i><b>Caution: </b>Some .csv files may not work with Tableau Desktop due to different encoding.
-		Tableau only supports UTF-8 encoding format. However, the web-based version can read xls, xlsx, and csv. I recommend to use xls and xlsx formats which are 
-		supported by default in Tableau. </i><br><br>
 		
 		<h3><u>1.3 - Check Formatting/Datatypes</u></h3>
 		Once the data has been imported, sheets in excel file can be seen in left pane of Tableau window. Since we have only one sheet, we can only see a sheet named
@@ -195,7 +199,7 @@
 			</video>
 		</div>
 	  
-		<h3>Step 2: Filters in Tableau</h3>
+		<h2>Step 2: Filters in Tableau</h2>
 		Now, lets create our first sheet and start playing with our data. We have columns ranging from 1980 to 2021. For this tutorial, we will only be plotting the data
 		for year 2021. I urge you to try other years as well.<br>
 		Once the data has been imported click on Sheet 1 to the right of data source in bottom left corner. In this view, we can see the data fields in left-pane. Top-pane
@@ -217,21 +221,80 @@
 		</div>
 		
 		Now, we are familiar with the <b>Filter</b> tool in Tableau. Now lets apply to our data.
-		<h3>Step 3: Make a Chloropeth plot and apply filter from filters pane</h3>
+		<h2>Step 3: Make a Choropleth plot and Apply Filters</h2>
 		Drag the <b>Country</b> field to rows and 2021 (or year of your choice) field to columns in plot-pane of Tableau. Then from <b>Show me</b> menu at top 
 		right corner, select maps (row 2 col 2). First we will not be able to see anything plotted. Why? Because a filter is applied and we have not chosen 
-		what to plot from filter. Now lets double-click on filter, and choose a value and click apply. The chloropeth plot will be visible now and 
+		what to plot from filter. Now lets double-click on filter, and choose a value and click apply. The Choropleth plot will be visible now and 
 		updated with specific data. 
 		
 		<div class="video-container">
 			<video width="640" height="360" controls>
-				<source src="../assets/assign5/step1.2.mp4" type="video/mp4">
+				<source src="../assets/assign5/step1.3.mp4" type="video/mp4">
 			</video>
 		</div>
 		
-		<h3>Step 4: Give Filter Control to User</h3>
-		<h3>Working Demo</h3>
-		<h2>• User-Driven Plot Selection</h2>
+		<h2>Step 4: Give Filter Control to User</h2>
+		To do this:
+		<ul>
+			<li>Right click on the Features in filter-pane and click on <b>Show Filter</b>. The filter will be visible in right-side of plot pane.</li>
+			<li>Now click on top-right corner of filter pane and click on "Single Value List". It will make the user to choose only one value at a time.</li>
+			<li>The information provided by <b>All</b> is also irrelevant. To remove this click on top-right corner drop-down list of our new filter pane 
+			in plot area. In <b>Customize</b> uncheck the "Show All" field.</li>
+			<li>Now make a new dashboard and add our Choropleth map to dashboard.</li>
+			<li>Now the user can click on feature to visaulize. The gradient legend is also updated based on selected feature.</li>
+		</ul>
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step1.4.1.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		However, there is still one problem: One field in <b>Features</b> has a different unit (million kW). It is quite possible that some datasets have different
+		units for different columns. By default, it is not supported by Tableau to update the legend. If we notice, only the range of 
+		values is updated in legend. We can leverage <b>Calculated Field</b> to implement this feature by following these steps:
+		<ul>
+			<li>Goto <b>Data</b> pane, right-click and select <b>Create Calculated Field</b></li>
+			<li>Name the calculated field as <b>legend_unit</b></li>
+			<li>Use <b>Case</b> statement to map the parameter value to corresponding unit.</li>
+			<pre>
+				CASE [Features]
+				WHEN 'Net Generation' THEN "(billion kWh)"
+				WHEN 'Net Consumption' THEN "(billion kWh)"
+				WHEN 'Imports' THEN "(billion kWh)"
+				WHEN 'Exports' THEN "(billion kWh)"
+				WHEN 'Net Imports' THEN "(billion kWh)"
+				WHEN 'Installed Capacity' THEN "(million kW)"
+				WHEN 'Distribution Losses' THEN "(billion kWh)"
+				END
+			</pre>
+			<li>Once this is created, make a new sheet and drag this field into plotting area.</li>
+			<li>Click on the small icon on left of legend_unit in <b>Marks</b> pane and select <b>Label</b></li>
+			<li>Also add Features filter to this sheet.</li>
+			<li>Now goto choropleth map sheet, right-click on feature and select <b>Apply to Worksheet</b>.</li>
+			<li>Choose choropleth sheet and unit sheet. Now the Feature Filter will be applied to both sheets simulatenously.</li>
+			<li>Now goto dashboard, and drag-drop the legend sheet and place it below the gradient value legend.</li>
+			<li>When we change the feature filter, we can see that the plot is changing based on selected feature as well as the units are also changing.</li>
+		</ul>
+		
+		<div class="video-container">
+			<video width="640" height="360" controls>
+				<source src="../assets/assign5/step1.4.2.mp4" type="video/mp4">
+			</video>
+		</div>
+		
+		Now, the user can see specific features of data with the correct units. After publishing the dashboard, embed it into website and the results can be seen
+		in demo below.
+		
+		<h2>Working Demo</h2>
+		<div class='tableauPlaceholder' id='viz1718771584596' style='position: relative'><noscript><a href='#'><img alt='data_selectable ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;el&#47;electricity_demo&#47;data_selectable&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='electricity_demo&#47;data_selectable' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;el&#47;electricity_demo&#47;data_selectable&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1718771584596');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1000px';vizElement.style.height='627px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1000px';vizElement.style.height='627px';} else { vizElement.style.width='100%';vizElement.style.height='777px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+		
+		    
+    </div>
+    
+    <div class="plot-container">
+      <div class="plot-title">User-Driven Plot Selection</div>
+      <div class="plot-description">
 		<h3>Step 1: Download Data, Import and Check Formatting</h3>
 		<h3>Step 2: Make Different Plots</h3>
 		<h3>Step 3: Create a Custom Paramter</h3>
@@ -242,56 +305,7 @@
 		<h3>Step 8: Placing Sheet - 2</h3>
 		<h3>Step 9: Placing Sheet - 3</h3>
 		<h3>Step 10: Placing Sheet - 4</h3>
-		<h3>Working Demo</h3>      
-    </div>
-    
-    <div class="plot-container">
-      <div class="plot-title">Visualizations</div>
-      <div class="plot-description">
-		<p>For visualization, <a href="https://www.tableau.com/">Tableau</a> has been utilized to depict global electricity statistics through an interactive <b>map-based</b> plot. Users can interact with the plot in the following ways:</p>
-			<ul>
-			  <li>By selecting different <b>Features</b> from the right pane, users can view the relevant information in both 
-			  the map-based plot and the horizontal bar plot at the bottom.</li>
-			  <li>The specified unit for the selected feature is automatically updated in the legend.</li>
-			  <li>Hovering over a country (on the map or bar chart) displays the exact value of the selected feature.</li>
-			  <li>Selecting a country in either plot highlights it on both the map and the bar graphs.</li>
-			</ul>
-			<p>Additionally, a <b>Tornado chart </b> (shown on right side) has been used to focus on the imports and exports of 
-			each country, with the chart ordered by increasing exports.</p>
-		      
-        	<div class='tableauPlaceholder' id='viz1717445311235' style='position: relative;'>
-	        	<noscript>
-	        		<a href='#'><img alt='electricity_stats ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;gl&#47;global_electricity_stats&#47;electricity_stats&#47;1_rss.png' style='border: none' /></a>
-	        	</noscript>
-	        	<object class='tableauViz'  style='display:none;'>
-		        	<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-		        	<param name='embed_code_version' value='3' />
-		        	<param name='site_root' value='' />
-		        	<param name='name' value='global_electricity_stats&#47;electricity_stats' />
-		        	<param name='tabs' value='no' />
-		        	<param name='toolbar' value='yes' />
-		        	<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;gl&#47;global_electricity_stats&#47;electricity_stats&#47;1.png' />
-		        	<param name='animate_transition' value='yes' />
-		        	<param name='display_static_image' value='yes' />
-		        	<param name='display_spinner' value='yes' />
-		        	<param name='display_overlay' value='yes' />
-		        	<param name='display_count' value='yes' />
-		        	<param name='language' value='en-US' />
-		        	<param name='filter' value='publish=yes' />
-	        	</object>
-        	</div>
-        	<script type='text/javascript'>
-				 var divElement = document.getElementById('viz1717445311235');
-				 var vizElement = divElement.getElementsByTagName('object')[0];                   
-				 if ( divElement.offsetWidth > 800 ) 
-				 	{ vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
-			 	 else if ( divElement.offsetWidth > 500 ) 
-			 	 	{ vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} 
-			 	 else { vizElement.style.width='100%';vizElement.style.height='1127px';}                     
-			 	 var scriptElement = document.createElement('script');                    
-			 	 scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
-			 	 vizElement.parentNode.insertBefore(scriptElement, vizElement);                
-		 	 </script>
+		<h3>Working Demo</h3>  
       </div>
     </div>
     
