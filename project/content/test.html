@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Timeline Plot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #visualization {
+            width: 80%;
+            height: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div id="visualization"></div>
+
+    <script>
+        // DOM element where the Timeline will be attached
+        var container = document.getElementById("visualization");
+
+        // Create a DataSet (allows two way data-binding)
+        var items = new vis.DataSet([
+            { id: 1, content: "Video Rewrite Program", start: "1997-01-01" },
+            { id: 2, content: "GANs", start: "2014-01-01" },
+            { id: 3, content: "Face2Face", start: "2016-03-07" },
+            { id: 4, content: "WaveNet", start: "2016-09-01" },
+            { id: 5, content: "DeepVoice1", start: "2017-01-01" },
+            { id: 6, content: "Synthesizing Obama", start: "2017-07-01" },
+            { id: 7, content: "/deepfakes (reddit)", start: "2017-10-01" },
+            { id: 8, content: "Face Forensics", start: "2018-01-01" },
+            { id: 9, content: "Jordan Peele Obama Deepfake", start: "2018-04-01" },
+            { id: 10, content: "Neural Voice Cloning", start: "2018-06-01" },
+            { id: 11, content: "Deep Video Portraits", start: "2018-08-01" },
+            { id: 12, content: "Motion Transfer", start: "2018-11-01" },
+            { id: 13, content: "Text-Based head movement editing", start: "2019-01-01" },
+            { id: 14, content: "FSGAN", start: "2019-04-01" },
+            { id: 15, content: "Neural Talking Heads", start: "2019-08-01" },
+            { id: 16, content: "Mark Zuckerberg Deepfake", start: "2019-11-01" },
+            { id: 17, content: "ImaGINator", start: "2020-01-01" },
+            { id: 18, content: "First Order Motion Model", start: "2020-04-01" },
+            { id: 19, content: "MarioNETte", start: "2020-08-01" },
+            { id: 20, content: "Wav2lip", start: "2020-11-01" },
+            { id: 21, content: "LipSync3D", start: "2021-01-01" },
+            { id: 22, content: "Pose-guided", start: "2021-05-01" },
+            { id: 23, content: "Speech Portraits", start: "2021-10-01" }
+        ]);
+
+        // Configuration for the Timeline
+        var options = {
+            orientation: { axis: 'left', item: 'top' }
+        };
+
+        // Create a Timeline
+        var timeline = new vis.Timeline(container, items, options);
+    </script>
+</body>
+</html>

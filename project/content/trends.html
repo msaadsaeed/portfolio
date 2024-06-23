@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepFake</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet">
+
+    <style>
+        #content1 {
+            width: 80%;
+            height: 90%;
+        }
+        .vis-item .vis-item-content {
+            font-size: 10px; /* Smaller text size */
+            white-space: pre-wrap; /* Allow line breaks */
+            position: relative;
+        }
+        .vis-time-axis .vis-text {
+            font-size: 10px; /* Smaller text size */
+        }
+        .year-2014 {
+            border-left: 3px solid #FF0000; /* Red */
+        }
+        .year-2016 {
+            border-left: 3px solid #00FF00; /* Green */
+        }
+        .year-2017 {
+            border-left: 3px solid #7979ec; /* Blue */
+        }
+        .year-2018 {
+            border-left: 3px solid #FFFF00; /* Yellow */
+        }
+        .year-2019 {
+            border-left: 3px solid #FF00FF; /* Magenta */
+        }
+        .year-2020 {
+            border-left: 3px solid #00FFFF; /* Cyan */
+        }
+        .year-2021 {
+            border-left: 3px solid #FFA500; /* Orange */
+        }
+
+        .vis-item .vis-box a {
+            text-decoration: none; /* Remove underline from link text */
+            color: inherit; /* Ensure the link inherits the text color */
+        }
+
+        .vis-item .vis-box:hover {
+            transform: scale(1.4); /* Increase the size of the box on hover */
+            transition: transform 0.1s; /* Smooth transition for the size change */
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="header">
+        <div class="header-text">
+            <h1 class="main-title">Deepfake It Till You Make It</h1>
+            <p class="subtitle">When Reality Gets a Makeover</p>
+        </div>
+    </div>
+
+    <div class="panel-container" >
+        <a href="../project.html" class="panel">
+            <img src="../assets/intro.png" alt="Icon 1" class="panel-icon">
+            <p class="panel-text">Introduction</p>
+        </a>
+        <a href="./trends.html" class="panel" style="background-color: rgba(214, 49, 49, 0.9);">
+            <img src="../assets/trends.png" alt="Icon 2" class="panel-icon">
+            <p class="panel-text">Trends</p>
+        </a>
+        <a href="./deepfake.html" class="panel">
+            <img src="../assets/deepfake.png" alt="Icon 3" class="panel-icon">
+            <p class="panel-text">Deepfakes</p>
+        </a>
+        <a href="./audiospoof.html" class="panel">
+            <img src="../assets/audio.png" alt="Icon 4" class="panel-icon">
+            <p class="panel-text">Audio Spoofing</p>
+        </a>
+        <a href="./game.html" class="panel">
+            <img src="../assets/game.png" alt="Icon 5" class="panel-icon">
+            <p class="panel-text">What is Fake?</p>
+        </a>
+        <a href="./explore.html" class="panel">
+            <img src="../assets/explore.png" alt="Icon 6" class="panel-icon">
+            <p class="panel-text">Learn More!</p>
+        </a>
+    </div>
+
+    <div class="body">
+        <div class="body-container">
+            <div class="body-button">
+                <a href="#button1content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content1">
+                    <p class="panel-text">Timeline</p>
+                </a>
+                <a href="#button2content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content2">
+                    <p class="panel-text">Google Search Trends</p>
+                </a>
+                <a href="#button3content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content3">
+                    <p class="panel-text">Fraud Trends</p>
+                </a>
+                <a href="#button4content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content4">
+                    <p class="panel-text">Facts</p>
+                </a>
+            </div>
+
+            <div class="body-content">
+                <div id="content1" class="content-section">
+                    <p>Hover over the box for more information. Click to open the source.</p>
+                </div>
+                <div id="content2" class="content-section" style="display: none;">
+                    <p>The graph shows Google Search Trends for terms related to "Deepfake" and "AudioSpooing".</p>
+                </div>
+                <div id="content3" class="content-section" style="display: none;">
+                    <p>In 2023, deepfakes significantly contributed to identity theft incidents, with the number of AI-generated 
+                        deepfakes increasing tenfold compared to 2022. Deepfakes, alongside other AI-powered fraud techniques, 
+                        became one of the top five tools used for fraud, including identity theft. Specifically, deepfakes 
+                        were involved in many identity fraud cases, accounting for a significant portion of the $43 billion 
+                        lost to identity fraud in the US. The technology has made it easier for criminals to create realistic
+                         forgeries, particularly targeting ID cards, which were the most exploited document for identity fraud,
+                          representing nearly 73% of fraudulent activities involving identity documents</p>
+                </div>
+                <div id="content4" class="content-section" style="display: none;">
+                    <ul class="styled-list">
+                        <li><span class="highlight-number">10x</span> increase globally in deepfake fraud cases from 2022 to early 2023.</li>
+                        <li>Crypto sector accounted for <span class="highlight-number">88%</span> of all deepfake cases detected in 2023, fintech 8%.</li>
+                        <li>Regional differences in deepfake growth rates from 2022 to 2023: North America: <span class="highlight-number">1,740%; APAC: 1,530%; Europe: 780%; MEA: 450%; Latin America: 410%.</span></li>
+                        <li>Deepfake identity fraud <span class="highlight-number">doubled</span> from 2022 to just Q1 2023 in the research study.</li>
+                        <li><span class="highlight-number">90%</span> of consumers raised concerns about deepfake attacks.</li>
+                        <li><span class="highlight-number">70%</span> percent of people could not confidently differentiate between a real voice and a cloned one.</li>
+                        <li><span class="highlight-number">10%</span> of those surveyed had received a message from an AI voice clone, and 77% of these people lost money as a consequence.</li>
+                        <li>In 2023, the cost of purchasing ready-made deepfakes varied between <span class="highlight-number">$300 to $20,000 per minute</span>, depending on complexity, quality, and the fame of the impersonated person.</li>
+                        <li>Video call verification methods are highly vulnerable to deepfake attacks that spoof identity documents and faces (German Federal Office for Information Security warning).</li>
+                        <li>Cybersecurity experts have urged EU policymakers to reconsider the vulnerability disclosure requirements under the proposed Cyber Resilience Act.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

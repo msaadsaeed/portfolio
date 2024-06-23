@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepFake</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.14.0/flowchart.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="header-text">
+            <h1 class="main-title">Deepfake It Till You Make It</h1>
+            <p class="subtitle">When Reality Gets a Makeover</p>
+        </div>
+    </div>
+
+    <div class="panel-container">
+        <a href="#" class="panel" style="background-color: rgba(214, 49, 49, 0.9);">
+            <img src="./assets/intro.png" alt="Icon 1" class="panel-icon">
+            <p class="panel-text">Introduction</p>
+        </a>
+        <a href="./content/trends.html" class="panel">
+            <img src="./assets/trends.png" alt="Icon 2" class="panel-icon">
+            <p class="panel-text">Trends</p>
+        </a>
+        <a href="./content/deepfake.html" class="panel">
+            <img src="./assets/deepfake.png" alt="Icon 3" class="panel-icon">
+            <p class="panel-text">Deepfakes</p>
+        </a>
+        <a href="./content/audiospoof.html" class="panel">
+            <img src="./assets/audio.png" alt="Icon 4" class="panel-icon">
+            <p class="panel-text">Audio Spoofing</p>
+        </a>
+        <a href="./content/game.html" class="panel">
+            <img src="./assets/game.png" alt="Icon 5" class="panel-icon">
+            <p class="panel-text">What is Fake?</p>
+        </a>
+        <a href="./content/explore.html" class="panel">
+            <img src="./assets/explore.png" alt="Icon 6" class="panel-icon">
+            <p class="panel-text">Learn More!</p>
+        </a>
+    </div>
+
+    <div class="body">
+        <div id="circleContainer"></div>
+        <div class="body-content">
+            <div id="content1" class="content-section">
+                <h3>Artificial Intelligence (AI)</h3>
+                <p class="description">Artificial Intelligence, commonly referred to as AI, is the field of computer science dedicated to creating 
+                    systems that can perform tasks typically requiring human intelligence. These tasks include learning from 
+                    experience, recognizing patterns, understanding natural language, and making decisions. AI aims to replicate 
+                    or simulate human cognitive processes in machines, enabling them to function autonomously and intelligently. 
+                    AI is already a part of our daily lives. Here are some common examples:<p>
+                    <h4 class="type-head">Voice Assistants:</h4>
+                    <p class="description">Siri, Alexa, and Google Assistant use AI to understand and answer your questions.</p>
+                    <h4 class="type-head">Streaming Services:</h4>
+                    <p class="description">Netflix and Spotify use AI to recommend movies, shows, and music based on what you’ve watched or listened to before.</p>
+                    <h4 class="type-head">Online Shopping:</h4>
+                    <p class="description">Amazon uses AI to suggest products you might like based on your browsing and purchase history.</p>
+                    <h4 class="type-head">Navigation:</h4>
+                    <p class="description">Apps like Google Maps use AI to find the best routes and provide real-time traffic updates.</p>
+                    <h4 class="type-head">Email Filters:</h4>
+                    <p class="description">Machine learning is used to filter out spam emails by learning to recognize what spam looks like.</p>
+                    <h4 class="type-head">Recommentation Systems:</h4>
+                    <p class="description">Services like Netflix and Amazon use machine learning to recommend movies or products based on what you’ve liked before.</p>
+                    <h4 class="type-head">Voice Recognition:</h4>
+                    <p class="description">Machine learning helps virtual assistants like Siri and Alexa understand and respond to your voice commands.</p>
+
+            </div>
+            <div id="content2" class="content-section" style="display: none;">
+                <h2>Machine Learning (ML)</h2>
+                <p class="description">Machine Learning is a subcategory of AI. It focuses on the development of algorithms and statistical models 
+                    that allow computers to learn from and make predictions or decisions based on data. Instead of being 
+                    explicitly programmed to perform a task, ML systems are trained using large amounts of data to recognize 
+                    patterns and improve their performance over time. Typically these steps are involved for making a Machine Learning system:</p>
+                    <h4 class="type-head">Learning from Data:</h4>
+                    <p class="description">Machine learning involves feeding a computer lots of data. For example, if you 
+                        want a computer to recognize pictures of cats and dogs, you would give it thousands of pictures of 
+                        cats and dogs.</p>
+                    <h4 class="type-head">Finding Patterns:</h4>
+                    <p class="description">The computer looks at all this data and starts to recognize patterns. It learns what
+                         makes a cat look like a cat and a dog look like a dog.</p>
+                    <h4 class="type-head">Making Predictions:</h4>
+                    <p class="description">Once the computer has learned these patterns, it can then look at new pictures 
+                        and decide whether they are of cats or dogs.</p>
+            </div>
+            <div id="content3" class="content-section" style="display: none;">
+                <h2>Deep Learning (DL)</h2>
+                <p class="description">Deep Learning is a specialized subcategory of machine learning. It involves neural networks with many 
+                    'layers (hence the term "deep") that can model complex patterns in large amounts of data. Deep learning
+                     has revolutionized fields such as image and speech recognition, natural language processing, and autonomous 
+                     driving. The structure of deep learning models is inspired by the human brain, enabling these systems to 
+                     learn and make decisions with high accuracy. These steps are involved for making a Deep Learning System:</p>
+                    <h4 class="type-head">Neural Networks:</h4>
+                    <p class="description">Deep learning uses artificial neural networks, which are made up of layers of nodes. 
+                        Each node is like a neuron in the human brain, processing a small piece of information.</p>
+                    <h4 class="type-head">Layers of Learning:</h4>
+                    <p class="description">These networks have many layers (hence "deep" learning). Information passes 
+                        through these layers, with each layer learning to recognize different features. For example, in 
+                        an image of a cat, the first layer might recognize edges, the next layer might recognize shapes, 
+                        and deeper layers might recognize parts of the cat like eyes or fur.</p>
+                    <h4 class="type-head">Training with Data:</h4>
+                    <p class="description">The neural network is trained using a large amount of data. 
+                        It adjusts the connections between nodes based on the data it processes, learning 
+                        to make better decisions over time. For instance, it can learn to recognize objects 
+                        in images or understand spoken language.</p>
+            </div>
+            <div id="content4" class="content-section" style="display: none;">
+                <h2>Generative AI</h2>
+                <p class="description">Generative AI is a subcategory of deep learning that focuses on creating new content. This includes generating 
+                    images, text, music, and even videos that are indistinguishable from content created by humans. Technologies 
+                    like Generative Adversarial Networks (GANs) and transformers (e.g., GPT-3) are at the forefront of generative 
+                    AI. These models can produce realistic images, write coherent articles, compose music, and much more, opening 
+                    up new possibilities in creative industries and beyond. The Generative AI works by:</p>
+                    <h4 class="type-head">Learning from Examples:</h4>
+                        <p class="description">Generative AI models are trained on large datasets containing many examples of 
+                        what they need to create. For instance, a model trained to generate artwork would learn from thousands
+                            of paintings.</p>
+                    <h4 class="type-head">Generating New Content:</h4>
+                        <p class="description">Once trained, these models can generate new content by understanding the patterns and 
+                        structures in the training data. For example, it can create a new piece of music that sounds like it was 
+                        composed by a human.</p>
+                    <p class="description" style="margin-left: 20px">Everyday examples of Generative AI include:</p>
+                    <h4 class="type-head">Art Generation:</h4>
+                        <p class="description">Tools like DALL-E and DeepArt can create unique artworks and images based on 
+                            prompts or styles.</p>
+                    <h4 class="type-head">Text Generation:</h4>
+                        <p class="description">Models like GPT can write articles, create stories, and even draft emails, 
+                        mimicking human writing styles.</p>
+                    <h4 class="type-head">Music Composition:</h4>
+                        <p class="description">AI tools can compose new music tracks that sound like they were created by 
+                            human musicians.</p>
+                    <h4 class="type-head">Video Creation:</h4>
+                    <p class="description">Generative AI can produce new video content, including animations and even realistic 
+                        human movements.</p>
+            </div>
+            <div id="content5" class="content-section" style="display: none;">
+                <h2>Deepfakes and Audio Spoofing</h2>
+                <p class="description"><b>Deepfake</b> is a technology that uses artificial intelligence to create realistic fake videos 
+                    or images. It combines "deep learning" and "fake" to describe how it works: by using deep learning techniques,
+                     it can alter or generate video and audio content that appears to be real, even though it's not.<br><b>Audio Spoofing</b> 
+                     involves creating fake audio recordings that sound like someone else. Using AI, these technologies can mimic a 
+                     person’s voice to say things they never actually said.
+                     The deepfakes can be created by:</p>
+                <h4 class="type-head">Training on Data:</h4>
+                    <p class="description">Both technologies are trained on respective modality information of a large number of persons 
+                        person. They learns to mimic their facial expressions, voice features, and movements.</p>
+                <h4 class="type-head">Creating Fake Content:</h4>
+                    <p class="description">Once trained, the technology can swap faces in videos, making it look like 
+                        someone else is saying or doing something they never did. It can also create entirely 
+                        new videos that look real with realistic audio of specific person.</p>
+                <p class="description" style="margin-left: 20px">Everyday examples of Deepfakes and Audio Spoofing include:</p>
+                <h4 class="type-head">Entertainment:</h4>
+                    <p class="description">Used in movies to create realistic special effects or bring deceased actors back to life.</p>
+                <h4 class="type-head">Social Media:</h4>
+                    <p class="description">Fun apps that let you swap faces with celebrities or friends in videos.</p>
+                <h4 class="type-head">Voice Assistants:</h4>
+                    <p class="description">Mimicking celebrity voices for fun interactions.</p>
+                <h4 class="type-head">Customer Service:</h4>
+                    <p class="description">Creating realistic automated responses that sound like a human representative.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
