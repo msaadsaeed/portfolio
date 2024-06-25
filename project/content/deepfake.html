@@ -6,6 +6,66 @@
     <title>DeepFake</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <style>
+        .styled-list {
+    list-style-type: none; /* Optional: Remove default list styling */
+    padding: 0;
+    margin: 0;
+}
+
+.styled-list li {
+    margin-bottom: 20px; /* Optional: Add space between list items */
+}
+
+.image-text-container {
+    display: flex;
+    justify-content: center; /* Center the images and text horizontally */
+    align-items: center;
+    margin-top: 10px; /* Optional: Adjust to add space between text and images */
+}
+
+.image-container {
+    position: relative;
+    display: flex;
+    justify-content: center; /* Center the images horizontally */
+    align-items: center;
+    margin-right: 20px; /* Space between image and text */
+}
+
+.image-container img {
+    max-width: 300px; /* Set maximum width for the images */
+    height: auto;
+    display: none; /* Hide all images by default */
+}
+
+.image-container img.active {
+    display: block; /* Show the active image */
+}
+
+.text-container {
+    max-width: 300px; /* Optional: Set maximum width for the text */
+}
+
+.step-text {
+    display: none; /* Hide all text by default */
+}
+
+.step-text.active {
+    display: block; /* Show the active text */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px; /* Optional: Adjust to add space between images and buttons */
+}
+
+.button-container button {
+    margin: 0 10px; /* Space between buttons */
+    padding: 5px 10px;
+    cursor: pointer;
+}
+    </style>
 </head>
 <body>
     <div class="header">
@@ -44,16 +104,69 @@
 
     <div class="body">
         <div class="body-heading">
+            <h3>What is Deepfake?</h3>
+            <p><b>Deepfakes</b> are a type of synthetic media where an individual's likeness in an image or video is replaced with another person's face. 
+                This technology, which relies on <b>deep learning</b> algorithms, can create highly realistic and convincing fake visuals.
+                The term "<b>deepfake</b>" originated in late 2017, introduced by a <b>Reddit</b> user who adopted this name. This user created a forum on 
+                <b>Reddit</b>, sharing explicit videos that utilized <b>face-swapping</b> technology made available through <b>open-source</b> software. This marked 
+                the beginning of widespread public awareness and discussion about the potential and risks associated with <b>deepfakes</b>.</p>
+            
+            <h3>Techniques</h3>
+            <p>Deepfakes encompass a variety of techniques and applications, each leveraging AI and deep learning to 
+                manipulate or generate synthetic media. Here are some of the different types of deepfakes:</p>
+                <ul class="styled-list">
+                    <li><b>Face Swap</b>: This is the most common type of deepfake, where the face of one person is swapped with another in a video or image. The technology ensures that the new face mimics the expressions and movements of the original.</li>
+                    <div class="image-container">
+                        <img src="images/faceswap/pic1.png" alt="Face Swap Step 1" class="active">
+                        <img src="images/faceswap/pic2.png" alt="Face Swap Step 2">
+                        <img src="images/faceswap/pic3.png" alt="Face Swap Step 3">
+                        <img src="images/faceswap/pic4.png" alt="Face Swap Step 4">
+                        <img src="images/faceswap/pic5.png" alt="Face Swap Step 5">
+                    </div>
+                    <div class="text-container">
+                        <p class="step-text active">Step 1: We have the source image and target image.</p>
+                        <p class="step-text">Step 2: Extract Facial landmarks, make a mask of face and perfomr face alignment.</p>
+                        <p class="step-text">Step 3: Extract the Region of Interest from Landmarks and transfer the expressions.</p>
+                        <p class="step-text">Step 4: Transfer the source segmented landmarks to target face.</p>
+                        <p class="step-text">Step 5: Apply blending.</p>
+                    </div>
+                    <div class="button-container">
+                        <button id="prevBtn">Prev</button>
+                        <button id="nextBtn">Next</button>
+                    </div>
+                    <li><b>Lip Sync</b>: In this type, the mouth movements of a person in a video are altered to match a different audio track, making it appear as though the person is saying something they did not actually say.</li>
+                    <li><b>Face Generation</b>: This technique creates entirely new, realistic-looking faces that do not belong to any real person.</li>
+                    <li><b>Style Transfer</b>: This technique involves altering the visual style of a video or image, such as making a video look like it was painted by a famous artist or transforming a live-action video into a cartoon.</li>
+                </ul>
+            <h3>How to examine deepfakes?</h3>
             <ul class="styled-list"> 
                 <li><b>Face</b> — Is someone blinking too much or too little? Do their eyebrows fit their face? Is someone’s hair in the wrong spot? Does their skin look airbrushed or, conversely, are there too many wrinkles?</li>
                 <li><b>Audio</b> — Does someone’s voice not match their appearance (ex. a heavyset man with a higher-pitched feminine voice).</li>
                 <li><b>Lighting</b> — What sort of reflection, if any, are a person’s glasses giving under a light? (Deepfakes often fail to fully represent the natural physics of lighting.)</li>
-            </ul>   
-                <div style="width: 75%; margin: auto;">
-                    <canvas id="horizontalBarChart"></canvas>
-                </div>
+            </ul>
         </div>
     </div>
+    <script>
+    const images = document.querySelectorAll('.image-container img');
+    const texts = document.querySelectorAll('.text-container .step-text');
+    let currentIndex = 0;
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        images[currentIndex].classList.remove('active');
+        texts[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].classList.add('active');
+        texts[currentIndex].classList.add('active');
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        images[currentIndex].classList.remove('active');
+        texts[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        images[currentIndex].classList.add('active');
+        texts[currentIndex].classList.add('active');
+    });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
