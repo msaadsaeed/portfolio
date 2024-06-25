@@ -107,6 +107,88 @@ ul.styled-list li:hover .highlight-number {
     text-decoration: underline;
 }
 
+.fake-images {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 80%; /* Increased width for larger images */
+    height: 100%;
+    margin: auto;
+  }
+  .fake-images .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure container takes full height of the cell */
+  }
+  .fake-images img {
+    width: 100%;
+    height: 350px; /* Set a specific height for the images */
+    object-fit: cover; /* Ensure images cover the area without distortion */
+    border: 2px solid #ccc;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0.5;
+  }
+  .fake-images img:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    opacity: 1;
+  }
+  
+  .fake-images img.selected {
+    opacity: 0.5; /* Change opacity when selected */
+    border: 2px solid red; /* Change border color when selected */
+    opacity: 1;
+  }
+
+  .button-div {
+    grid-column: span 4; /* Make the button span all columns */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px auto;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  .button-div:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .audio-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 80%; /* Adjust width as necessary */
+    margin: auto;
+  }
+  .audio-grid .audio-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .audio-grid audio {
+    width: 100%;
+    opacity: 0.5; /* Default opacity */
+    transition: opacity 0.3s, border 0.3s; /* Smooth transition */
+    cursor: pointer;
+  }
+  .audio-grid audio:hover {
+    opacity: 1; /* Change opacity on hover */
+  }
+  .audio-grid audio.selected {
+    border: 2px solid red; /* Visual effect for selected audio */
+    opacity: 1;
+  }
+
 .panel-container {
     position: relative;
     top: -75px; 

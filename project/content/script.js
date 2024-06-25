@@ -200,59 +200,70 @@ google.charts.load('current', {
 document.addEventListener('DOMContentLoaded', function() {
     // First Bar Chart
     var barChartData1 = {
-      labels: [
-        "Synthetic Identity Fraud",
-        "Voice Deepfakes",
-        "Video Deepfakes"
-      ],
-      datasets: [
-        {
-          label: "Already Experienced it",
-          backgroundColor: "pink",
-          borderColor: "red",
-          borderWidth: 1,
-          data: [46, 37, 29]
-        },
-        {
-          label: "See it as a Genuine Threat",
-          backgroundColor: "orange",
-          borderColor: "grey",
-          borderWidth: 1,
-          data: [88, 81, 79]
-        }
-      ]
-    };
-
-    var chartOptions1 = {
-      responsive: true,
-      legend: {
-        position: "top"
-      },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
+        labels: [
+          "Synthetic Identity Fraud",
+          "Voice Deepfakes",
+          "Video Deepfakes"
+        ],
+        datasets: [
+          {
+            label: "Already Experienced it",
+            backgroundColor: "pink",
+            borderColor: "red",
+            borderWidth: 1,
+            data: [46, 37, 29]
           },
-          scaleLabel: {
-            display: true,
-            labelString: 'Responses'
+          {
+            label: "See it as a Genuine Threat",
+            backgroundColor: "orange",
+            borderColor: "grey",
+            borderWidth: 1,
+            data: [88, 81, 79]
           }
-        }],
-        xAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Type of Fraud'
+        ]
+      };
+    
+      var chartOptions1 = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+            labels: {
+              color: 'white' // Change the color of the legend text
+            }
           }
-        }]
-      }
-    };
-
-    var ctx1 = document.getElementById("stackBar").getContext("2d");
-    var myBarChart1 = new Chart(ctx1, {
-      type: "bar",
-      data: barChartData1,
-      options: chartOptions1
-    });
+        },
+        scales: {
+          y: {
+            ticks: {
+              beginAtZero: true,
+              color: 'white' // Change the color of the y-axis ticks
+            },
+            title: {
+              display: true,
+              text: 'Responses',
+              color: 'white' // Change the color of the y-axis label
+            }
+          },
+          x: {
+            ticks: {
+              color: 'white' // Change the color of the x-axis ticks
+            },
+            title: {
+              display: true,
+              text: 'Type of Fraud',
+              color: 'white' // Change the color of the x-axis label
+            }
+          }
+        }
+      };
+    
+      var ctx1 = document.getElementById("stackBar").getContext("2d");
+      var myBarChart1 = new Chart(ctx1, {
+        type: 'bar',
+        data: barChartData1,
+        options: chartOptions1
+      });
 
     // Second Bar Chart
     var barChartData = {
@@ -261,46 +272,54 @@ document.addEventListener('DOMContentLoaded', function() {
           {
             label: "USD (Million)",
             backgroundColor: [
-              "pink",      // Color for "ActiveFence"
-              "lightblue", // Color for "Logically"
-              "lightgreen",// Color for "Blackbird.AI"
-              "grey",      // Color for "Clarity"
-              "grey",      // Color for "Trust Lab"
-              "grey",      // Color for "Cyabra"
-              "grey",      // Color for "Reken"
-              "grey"       // Color for "Alethea"
+              "pink",      
+              "lightblue", 
+              "lightgreen",
+              "grey",      
+              "grey",     
+              "grey",      
+              "grey",     
+              "grey"       
             ],
             borderColor: "grey",
             borderWidth: 1,
-            data: [100, 36.72, 30.625, 16, 15, 12.3, 10, 10] // Values in millions
+            data: [100, 36.72, 30.625, 16, 15, 12.3, 10, 10] 
           }
         ]
       };
 
       var chartOptions = {
         responsive: true,
-        legend: {
-          display: false // Hide the legend
+        plugins: {
+          legend: {
+            position: "top",
+            labels: {
+              color: 'white' // Change the color of the legend text
+            }
+          }
         },
         scales: {
-          yAxes: [{
+          y: {
             ticks: {
               beginAtZero: true,
-              callback: function(value) {
-                return value + 'M'; // Display values in millions
-              }
+              color: 'white' // Change the color of the y-axis ticks
             },
-            scaleLabel: {
+            title: {
               display: true,
-              labelString: 'Funding Amount (in Millions)'
+              text: 'Funding Raised ($)',
+              color: 'white' // Change the color of the y-axis label
             }
-          }],
-          xAxes: [{
-            scaleLabel: {
+          },
+          x: {
+            ticks: {
+              color: 'white' // Change the color of the x-axis ticks
+            },
+            title: {
               display: true,
-              labelString: 'Startup'
+              text: 'Starup Name',
+              color: 'white' // Change the color of the x-axis label
             }
-          }]
+          }
         }
       };
 
@@ -312,8 +331,4 @@ document.addEventListener('DOMContentLoaded', function() {
       });
   });
 
-
-  // Male vs Female in deepfake deetection
-
-  // Facts for detecting deepfake
 

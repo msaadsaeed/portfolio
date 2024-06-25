@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DeepFake</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header">
@@ -41,15 +40,403 @@
             <p class="panel-text">Learn More!</p>
         </a>
     </div>
-
     <div class="body">
-        <div class="body-heading">
-            <h1>Deep Fake Detection Trends</h1>
-            <p>Face — Is someone blinking too much or too little? Do their eyebrows fit their face? Is someone’s hair in the wrong spot? Does their skin look airbrushed or, conversely, are there too many wrinkles?
-                Audio — Does someone’s voice not match their appearance (ex. a heavyset man with a higher-pitched feminine voice).
-                Lighting — What sort of reflection, if any, are a person’s glasses giving under a light? (Deepfakes often fail to fully represent the natural physics of lighting.)</p>
+        <div class="body-heading"> 
+            <h3>What Elements Reveal a Deepfake?</h3>
+                <div style="width: 75%; margin: auto;">
+                    <canvas id="horizontalBarChart"></canvas>
+                </div>
+            <h3>Share of consumers who say they could detect a deepfake video worldwide as of 2022.</h3>
+                <div style="width: 20%; margin: auto;">
+                    <canvas id="oilChart" width="600" height="400"></canvas>
+                </div>
+            <h3>Can you detect Deepfakes?</h3>
+            <div class="fake-images">
+                <div class="image-container">
+                    <img src="images/fake1.gif" alt="Image 1" data-type="fake">
+                </div>
+                <div class="image-container">
+                    <img src="images/real1.gif" alt="Image 2" data-type="real">
+                </div>
+                <div class="image-container">
+                    <img src="images/real2.gif" alt="Image 3" data-type="real">
+                </div>
+                <div class="image-container">
+                    <img src="images/fake2.gif" alt="Image 4" data-type="fake">
+                </div>
+                <div class="image-container">
+                    <img src="images/real4.gif" alt="Image 5" data-type="real">
+                </div>
+                <div class="image-container">
+                    <img src="images/fake3.gif" alt="Image 6" data-type="fake">
+                </div>
+                <div class="image-container">
+                    <img src="images/fake4.gif" alt="Image 7" data-type="fake">
+                </div>
+                <div class="image-container">
+                    <img src="images/real3.gif" alt="Image 8" data-type="real">
+                </div>
+                <div class="button-div" onclick="handleButtonClick()">
+                Submit
+                </div>
+            </div>
+            <h4>Selected Images:</h4>
+                <ul id="selected-images-list"></ul>
+
+            <h3>Can you detect Synthetic Audio?</h3>
+            <div class="audio-grid">
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="fake" data-name="Audio 1">
+                    <source src="audio/fake1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio1" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio1" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="real" data-name="Audio 2">
+                    <source src="audio/real1.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio2" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio2" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="fake" data-name="Audio 3">
+                    <source src="audio/fake2.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio3" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio3" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="real" data-name="Audio 4">
+                    <source src="audio/real2.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio4" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio4" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="real" data-name="Audio 5">
+                    <source src="audio/real3.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio5" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio5" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="fake" data-name="Audio 6">
+                    <source src="audio/fake3.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio6" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio6" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="fake" data-name="Audio 7">
+                    <source src="audio/fake4.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio7" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio7" value="real"> Real
+                  </label>
+                </div>
+                <div class="audio-container">
+                  <audio controls preload="auto" data-type="real" data-name="Audio 8">
+                    <source src="audio/real4.wav" type="audio/wav">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <label>
+                    <input type="radio" name="audio8" value="fake"> Fake
+                  </label>
+                  <label>
+                    <input type="radio" name="audio8" value="real"> Real
+                  </label>
+                </div>
+                <div class="button-div" onclick="handleAudioButtonClick()">
+                  Submit
+                </div>
+              </div>
+            
+              <h4>Selected Audio Files:</h4>
+              <ul id="selected-audio-list"></ul>
         </div>
     </div>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  var barChartData = {
+    labels: [
+      'Mouth movement inconsistent with spoken words',
+      'Incorrect facial expressions',
+      'Facial expressions inconsistent with the message being conveyed',
+      'Unstable facial movements',
+      'Unnatural eye movements',
+      'Words spoken on video appear unreliable/incongruent',
+      'Unnatural body proportions',
+      '"Piercing" another image from the background',
+      'Suspiciously infrequent blinking by the person appearing in the video',
+      'Unnatural positioning of the head in relation to the body',
+      'Visible blurs on the face',
+      'Skipping frames of the film',
+      'Static shot - only the torso and head of the person is shown',
+      'Unnaturally falling shadow in the image',
+      'Poor image/sound quality',
+      'Uneven color of the face',
+      'Pupils of different sizes',
+      'Other features',
+      'Hard to say',
+      'None'
+    ],
+    datasets: [
+      {
+        label: "Share of respondents (%)",
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(199, 199, 199, 0.2)',
+          'rgba(83, 102, 255, 0.2)',
+          'rgba(99, 255, 132, 0.2)',
+          'rgba(235, 162, 54, 0.2)',
+          'rgba(132, 255, 99, 0.2)',
+          'rgba(255, 83, 132, 0.2)',
+          'rgba(192, 75, 192, 0.2)',
+          'rgba(255, 99, 83, 0.2)',
+          'rgba(159, 64, 255, 0.2)',
+          'rgba(255, 206, 99, 0.2)',
+          'rgba(86, 199, 255, 0.2)',
+          'rgba(255, 83, 255, 0.2)',
+          'rgba(255, 64, 159, 0.2)',
+          'rgba(199, 83, 255, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(199, 199, 199, 1)',
+          'rgba(83, 102, 255, 1)',
+          'rgba(99, 255, 132, 1)',
+          'rgba(235, 162, 54, 1)',
+          'rgba(132, 255, 99, 1)',
+          'rgba(255, 83, 132, 1)',
+          'rgba(192, 75, 192, 1)',
+          'rgba(255, 99, 83, 1)',
+          'rgba(159, 64, 255, 1)',
+          'rgba(255, 206, 99, 1)',
+          'rgba(86, 199, 255, 1)',
+          'rgba(255, 83, 255, 1)',
+          'rgba(255, 64, 159, 1)',
+          'rgba(199, 83, 255, 1)'
+        ],
+        borderWidth: 1,
+        data: [46, 38, 38, 33, 33, 32, 30, 26, 25, 25, 22, 22, 21, 21, 2, 16, 16, 1, 17, 4]
+      }
+    ]
+  };
+
+  var chartOptions = {
+    responsive: true,
+    indexAxis: 'y',
+    scales: {
+      x: {
+        beginAtZero: true,
+        max: 60,
+        title: {
+          display: true,
+          text: 'Share of respondents (%)',
+          color: 'white'
+        },
+        ticks: {
+          color: 'white'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Reasons',
+          color: 'white'
+        },
+        ticks: {
+          color: 'white'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white' // Change the color of the legend text
+        }
+      }
+    }
+  };
+
+  var ctx = document.getElementById("horizontalBarChart").getContext("2d");
+  var myHorizontalBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: barChartData,
+    options: chartOptions
+  });
+
+   // Pie Chart
+   var oilCanvas = document.getElementById("oilChart");
+
+var oilData = {
+  labels: [
+    "Yes",
+    "No"
+  ],
+  datasets: [
+    {
+      data: [57.0, 43.0],
+      backgroundColor: [
+        "#FF6384",
+        "#63FF84"
+      ]
+    }]
+};
+
+var pieChart = new Chart(oilCanvas, {
+  type: 'pie',
+  data: oilData,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white' // Change the color of the legend text
+        }
+      }
+    }
+  }
+});
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+      const images = document.querySelectorAll('.fake-images img');
+      const selectedImagesList = document.getElementById('selected-images-list');
+      const selectedImages = new Set();
+
+      images.forEach(image => {
+        image.addEventListener('click', function() {
+          if (image.classList.toggle('selected')) {
+            selectedImages.add(image);
+          } else {
+            selectedImages.delete(image);
+          }
+        });
+      });
+
+      window.handleButtonClick = function() {
+        selectedImagesList.innerHTML = '';
+        const fakeImages = [];
+        const realImages = [];
+        selectedImages.forEach(image => {
+          if (image.dataset.type === 'fake') {
+            fakeImages.push(image.alt);
+          } else {
+            realImages.push(image.alt);
+          }
+        });
+
+        const fakeImagesList = document.createElement('li');
+        fakeImagesList.textContent = 'Fake images: ' + fakeImages.join(', ');
+        selectedImagesList.appendChild(fakeImagesList);
+
+        const realImagesList = document.createElement('li');
+        realImagesList.textContent = 'Real images: ' + realImages.join(', ');
+        selectedImagesList.appendChild(realImagesList);
+      }
+    });
+
+    // Audio JS
+    document.addEventListener('DOMContentLoaded', function() {
+  const audioContainers = document.querySelectorAll('.audio-container');
+  const selectedAudioList = document.getElementById('selected-audio-list');
+
+  window.handleAudioButtonClick = function() {
+    selectedAudioList.innerHTML = '';
+    const correctFakeAudios = [];
+    const incorrectFakeAudios = [];
+    const correctRealAudios = [];
+    const incorrectRealAudios = [];
+
+    audioContainers.forEach(container => {
+      const audio = container.querySelector('audio');
+      const selectedRadio = container.querySelector('input[type="radio"]:checked');
+      if (selectedRadio) {
+        const isFake = audio.dataset.type === 'fake';
+        const isSelectedFake = selectedRadio.value === 'fake';
+        
+        if (isFake) {
+          if (isSelectedFake) {
+            correctFakeAudios.push(audio.dataset.name);
+          } else {
+            incorrectRealAudios.push(audio.dataset.name);
+          }
+        } else {
+          if (isSelectedFake) {
+            incorrectFakeAudios.push(audio.dataset.name);
+          } else {
+            correctRealAudios.push(audio.dataset.name);
+          }
+        }
+      }
+    });
+
+    const correctFakeAudiosList = document.createElement('li');
+    correctFakeAudiosList.textContent = 'Correctly identified fake audios: ' + correctFakeAudios.join(', ');
+    selectedAudioList.appendChild(correctFakeAudiosList);
+
+    const incorrectFakeAudiosList = document.createElement('li');
+    incorrectFakeAudiosList.textContent = 'Incorrectly identified as fake audios: ' + incorrectFakeAudios.join(', ');
+    selectedAudioList.appendChild(incorrectFakeAudiosList);
+
+    const correctRealAudiosList = document.createElement('li');
+    correctRealAudiosList.textContent = 'Correctly identified real audios: ' + correctRealAudios.join(', ');
+    selectedAudioList.appendChild(correctRealAudiosList);
+
+    const incorrectRealAudiosList = document.createElement('li');
+    incorrectRealAudiosList.textContent = 'Incorrectly identified as real audios: ' + incorrectRealAudios.join(', ');
+    selectedAudioList.appendChild(incorrectRealAudiosList);
+  }
+});
+    </script>
 </body>
 </html>
