@@ -196,24 +196,124 @@ google.charts.load('current', {
     chart.draw(data, options);
   }
   
-  google.charts.load("current", {packages:["corechart"]});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-      ['Task', 'Hours per Day'],
-      ['Work',     11],
-      ['Eat',      2],
-      ['Commute',  2],
-      ['Watch TV', 2],
-      ['Sleep',    7]
-    ]);
-
-    var options = {
-      title: 'My Daily Activities',
-      is3D: true,
+// Grouped Bar Chart
+document.addEventListener('DOMContentLoaded', function() {
+    // First Bar Chart
+    var barChartData1 = {
+      labels: [
+        "Synthetic Identity Fraud",
+        "Voice Deepfakes",
+        "Video Deepfakes"
+      ],
+      datasets: [
+        {
+          label: "Already Experienced it",
+          backgroundColor: "pink",
+          borderColor: "red",
+          borderWidth: 1,
+          data: [46, 37, 29]
+        },
+        {
+          label: "See it as a Genuine Threat",
+          backgroundColor: "orange",
+          borderColor: "grey",
+          borderWidth: 1,
+          data: [88, 81, 79]
+        }
+      ]
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-    chart.draw(data, options);
-  }
-  
+    var chartOptions1 = {
+      responsive: true,
+      legend: {
+        position: "top"
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Responses'
+          }
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Type of Fraud'
+          }
+        }]
+      }
+    };
+
+    var ctx1 = document.getElementById("stackBar").getContext("2d");
+    var myBarChart1 = new Chart(ctx1, {
+      type: "bar",
+      data: barChartData1,
+      options: chartOptions1
+    });
+
+    // Second Bar Chart
+    var barChartData = {
+        labels: ['ActiveFence', 'Logically', 'Blackbird.AI', 'Clarity', 'Trust Lab', 'Cyabra', 'Reken', 'Alethea'],
+        datasets: [
+          {
+            label: "USD (Million)",
+            backgroundColor: [
+              "pink",      // Color for "ActiveFence"
+              "lightblue", // Color for "Logically"
+              "lightgreen",// Color for "Blackbird.AI"
+              "grey",      // Color for "Clarity"
+              "grey",      // Color for "Trust Lab"
+              "grey",      // Color for "Cyabra"
+              "grey",      // Color for "Reken"
+              "grey"       // Color for "Alethea"
+            ],
+            borderColor: "grey",
+            borderWidth: 1,
+            data: [100, 36.72, 30.625, 16, 15, 12.3, 10, 10] // Values in millions
+          }
+        ]
+      };
+
+      var chartOptions = {
+        responsive: true,
+        legend: {
+          display: false // Hide the legend
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              callback: function(value) {
+                return value + 'M'; // Display values in millions
+              }
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Funding Amount (in Millions)'
+            }
+          }],
+          xAxes: [{
+            scaleLabel: {
+              display: true,
+              labelString: 'Startup'
+            }
+          }]
+        }
+      };
+
+      var ctx = document.getElementById("barChart").getContext("2d");
+      var myBarChart = new Chart(ctx, {
+        type: "bar",
+        data: barChartData,
+        options: chartOptions
+      });
+  });
+
+
+  // Male vs Female in deepfake deetection
+
+  // Facts for detecting deepfake
+

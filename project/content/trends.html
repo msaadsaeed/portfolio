@@ -105,6 +105,9 @@
                 <a href="#button3content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content3">
                     <p class="panel-text">Fraud Trends</p>
                 </a>
+                <a href="#button5content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content5">
+                    <p class="panel-text">Startups Fighting Deepfakes</p>
+                </a>
                 <a href="#button4content" class="body-panel" style="background-color: rgba(51, 51, 51, 0.9);" data-target="content4">
                     <p class="panel-text">Facts</p>
                 </a>
@@ -135,10 +138,24 @@
                             the United States, the United Kingdom, France and Germany shows that a sizable chunk of their 
                             companies were targeted by one of three methods of advanced identity fraud. 
                         </li>
-                        <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+                        <div style="width: 50%; margin: auto;">
+                            <canvas id="stackBar" width="400" height="300"></canvas>
+                        </div>
                     </ul>
                     
                 </div>
+                <div id="content5" class="content-section" style="display: none;">
+                    <ul class="styled-list">    
+                        <li>To get a sense of what investors are into, we put together a list of 
+                        <span class="highlight-number">16 companies</span>, most of which 
+                        last raised financing in the past year. To date, the selected startups have collectively raised 
+                        more than <span class="highlight-number">$250 million.</span>.</li>
+                    </ul>
+                        <div style="width: 50%; margin: auto;">
+                            <canvas id="barChart" width="400" height="300"></canvas>
+                        </div>
+                </div>
+                
                 <div id="content4" class="content-section" style="display: none;">
                     <ul class="styled-list">
                         <li><span class="highlight-number">10x</span> increase globally in deepfake fraud cases from 2022 to early 2023.</li>
@@ -153,12 +170,14 @@
                         <li>Cybersecurity experts have urged EU policymakers to reconsider the vulnerability disclosure requirements under the proposed Cyber Resilience Act.</li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
-    <script type="text/javascript">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script type="text/javascript">
         google.charts.load('current', {'packages':['bar']});
         google.charts.setOnLoadCallback(drawChart);
 
@@ -196,6 +215,6 @@
         chart.draw(data, google.charts.Bar.convertOptions(options));
         }
 
-      </script>
+      </script> -->
 </body>
 </html>
