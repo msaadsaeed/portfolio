@@ -18,10 +18,11 @@ ul.styled-list li {
     background: #201d1d;
     margin: 10px 0;
     padding: 15px;
-    border-radius: 20px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease;
     position: relative;
+    padding-left: 25px; /* Space for the dot */
 }
 
 ul.styled-list li:hover {
@@ -32,9 +33,14 @@ ul.styled-list li::before {
     content: "•";
     color: #007BFF;
     font-weight: bold;
-    display: inline-block; 
-    width: 1em;
-    margin-left: -1em;
+    position: absolute;
+    left: 10px;
+    font-size: 1.5em; /* Default dot size */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+ul.styled-list li:hover::before {
+    transform: scale(1.2); /* Increase dot size on hover */
 }
 
 .highlight-number {
@@ -45,6 +51,13 @@ ul.styled-list li::before {
 ul.styled-list li:hover .highlight-number {
     font-size: 1.5em; /* Increase font size on hover */
     color: #FF6347; /* Optional: change color on hover */
+}
+
+#image1, #image2 {
+    opacity: 0.9;
+    max-width: 30%;
+    height: auto;
+    margin-left: 500px;
 }
 
 .header {

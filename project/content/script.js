@@ -146,3 +146,74 @@ timeline.on('rangechange', function () {
 
 // Initial tick color update
 updateTickColors();
+
+
+google.charts.load('current', {
+    'packages':['geochart'],
+  });
+  google.charts.setOnLoadCallback(drawRegionsMap);
+  
+  function drawRegionsMap() {
+    var data = google.visualization.arrayToDataTable([
+      ['Country', 'Increase (%)'],
+      ['Canada', 477],
+      ['United States', 3000],
+      ['Mexico', 700],
+      ['Brazil', 827],
+      ['Argentina', 766],
+      ['Chile', 300],
+      ['Algeria', 1000],
+      ['South Africa', 1200],
+      ['Belgium', 2950],
+      ['Slovakia', 1500],
+      ['Romania', 1766],
+      ['Japan', 2800],
+      ['Indonesia', 1400],
+      ['Vietnam', 3050],
+      ['United Arab Emirates', 2200],
+      ['Saudi Arabia', 1600],
+      ['Philippines', 4500],
+      ['Pakistan', 2300],
+      ['India', 2700],
+      ['Bangaldesh', 2600],
+      ['COlombia', 1400],
+      ['Ecuador', 1200],
+      ['Morocco', 1832],
+      ['Turkey', 1533],
+      ['Germany', 142],
+      ['China', 2800],
+      ['Moldova', 900],
+      ['Australia', 1530],
+    ]);
+  
+    var options = {
+        height: 600, // Set the height of the chart
+        width: 800  // Set the width of the chart
+    };
+  
+    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+  
+    chart.draw(data, options);
+  }
+  
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['Work',     11],
+      ['Eat',      2],
+      ['Commute',  2],
+      ['Watch TV', 2],
+      ['Sleep',    7]
+    ]);
+
+    var options = {
+      title: 'My Daily Activities',
+      is3D: true,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+  }
+  
